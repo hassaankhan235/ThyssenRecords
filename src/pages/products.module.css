@@ -1,0 +1,16 @@
+@media screen and (min-width: 768px){
+    .check {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        color: blue;
+        font-size: xx-large;
+    }
+}
+
+.check div{
+    height: 40rem;
+}
+.check span {
+    text-align: center;
+}
