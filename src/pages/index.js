@@ -1,5 +1,6 @@
 import React from "react"
 import {useStaticQuery, graphql} from 'gatsby'
+import netlifyIdentity from 'netlify-identity-widget'
 
 import Example from './example.tsx'
 import Images from './images'
@@ -23,6 +24,8 @@ export default function Home(props) {
   title : {title}
   Hello world!
   <Products />
+  <input type= "submit" name="Login" 
+  onClick={()=>netlifyIdentity.open()} />
   </div>
   )
 }
