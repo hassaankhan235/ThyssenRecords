@@ -1,11 +1,9 @@
-import React from "react"
+import React, {useContext} from "react"
 import {useStaticQuery, graphql} from 'gatsby'
 import netlifyIdentity from 'netlify-identity-widget'
+import IdentityContext from '../../IdentityContext'
 
-import Example from './example.tsx'
-import Images from './images'
-import Products from './Products'
-
+import Layout from './layout/layout'
 const getdata = graphql`
 {
   site{
@@ -18,12 +16,15 @@ const getdata = graphql`
 
 export default function Home(props) {
 
+  const {user} = useContext(IdentityContext)
   const {site:{siteMetadata:{title}}} = useStaticQuery(getdata) 
+
   return (
     <div>
+    <Layout />
   title : {title}
   Hello world!
-  <Products />
+  {user.email}
   <input type= "submit" name="Login" 
   onClick={()=>netlifyIdentity.open()} />
   </div>
