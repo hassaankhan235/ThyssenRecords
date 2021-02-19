@@ -72,3 +72,5 @@ yarn-error.log
 pages/example.js
 pages/images.js
 pages/Products.tsx
+# Local Netlify folder
+.netlify

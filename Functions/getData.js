@@ -27,14 +27,6 @@ const resolvers = {
         catch(err){
           console.log("ERROR",err);
         }
-        try
-        {
-          var client = new fauna.Client({secret: "fnAD8k-3RiACB8K1iVEw5OgNm-JRLgWZHOuYAd7v"})
-          let res = await client.query(
-            
-              )
-            }
-            catch(err){console.log(err);}
       }
     }
 }

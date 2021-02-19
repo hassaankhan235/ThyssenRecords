@@ -1,19 +1,12 @@
 import React, {useContext} from "react"
-import {useStaticQuery, graphql} from 'gatsby'
+import {useStaticQuery, graphql, Link} from 'gatsby'
 import IdentityContext from '../../IdentityContext'
 
 import Layout from './layout/layout'
 import LoginCard from './app/LoginCard'
+import WelcomeCard from './app/WelcomeCard'
+import AppLogedin from './app/appLoggedIn'
 
-const getdata = graphql`
-{
-  site{
-    siteMetadata{
-      title
-    }
-  }
-}
-`
 
 export default function Home(props) {
 
@@ -21,9 +14,16 @@ export default function Home(props) {
   // const {site:{siteMetadata:{title}}} = useStaticQuery(getdata) 
 
   return (
-    <div>
+    <>
     <Layout /> 
-    {user.email ? 'Welcome Dada' : <LoginCard/> }
-    </div>
+    
+    {user.email ? 
+    <> <WelcomeCard /> 
+   <AppLogedin />
+  </>
+  : 
+    <LoginCard />
+    }
+    </>
   )
 }
