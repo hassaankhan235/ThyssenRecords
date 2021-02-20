@@ -1,11 +1,11 @@
 import React, {useContext} from "react"
-import {useStaticQuery, graphql, Link} from 'gatsby'
 import IdentityContext from '../../IdentityContext'
 
 import Layout from './layout/layout'
 import LoginCard from './app/LoginCard'
 import WelcomeCard from './app/WelcomeCard'
 import AppLogedin from './app/appLoggedIn'
+import Styles from './app/components/Dash.module.css'
 
 
 export default function Home(props) {
@@ -14,7 +14,7 @@ export default function Home(props) {
   // const {site:{siteMetadata:{title}}} = useStaticQuery(getdata) 
 
   return (
-    <>
+    <div className= {`bg-secondary ${Styles.fh}`} >
     <Layout /> 
     
     {user.email ? 
@@ -24,6 +24,6 @@ export default function Home(props) {
   : 
     <LoginCard />
     }
-    </>
+    </div>
   )
 }

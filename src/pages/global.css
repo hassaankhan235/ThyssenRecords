@@ -1,0 +1,8 @@
+html, body, #___gatsby, #gatsby-focus-wrapper {
+    height: 100%;
+}
+
+div[role="group"][tabindex] {
+    height: 100%;
+}
+  

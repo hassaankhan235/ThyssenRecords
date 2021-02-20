@@ -1,7 +1,6 @@
 import React from 'react'
 import netlifyIdentity from 'netlify-identity-widget'
 
-import IdentityContext from '../../../IdentityContext'
 
 const LoginCard = () => {
     return(
