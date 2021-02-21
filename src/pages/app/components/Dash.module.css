@@ -30,3 +30,6 @@ display: flex;
     text-transform: uppercase;
     font-weight: bold;
 }
+.small {
+    font-size: smaller;
+}

@@ -1,0 +1,7 @@
+.footer{
+    display: block;
+    margin: 0 auto;
+    background-color:red;
+    margin-top: 10px;
+    width: 80%;
+}

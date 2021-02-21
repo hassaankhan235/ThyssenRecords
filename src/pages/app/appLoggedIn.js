@@ -20,10 +20,11 @@ return(
     <>
     <div className= {`bg-secondary ${Styles.grid}`} style={{ width:'80%', margin:'0 auto'}}>
         <div style={{display:'flex', flexDirection:'column'}}>
-        Hassaan
+        <h5 className='text-light'> 
         {loading && `Still Loading baba`}
         {data && 'THIS MONTH'}
         {error && `ERROR HAI`}
+        </h5>
         <div style={{display:'flex'}}>
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'/>
         <DashboardInfoCards title='Training' firstinfo='Tot Traing' secinfo='Total Attendees'/>
@@ -31,7 +32,7 @@ return(
         </div>
 
         <div className='ml-5' style={{display:'flex', flexDirection:'column'}}>
-            This Year
+        <h5 className='text-light'>     THIS YEAR </h5> 
         <div style={{display:'flex'}}>
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'/>
         <DashboardInfoCards title='Training' firstinfo='Tot Traing' secinfo='Total Attendees'/>
