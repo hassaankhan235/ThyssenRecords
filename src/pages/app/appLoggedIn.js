@@ -10,12 +10,11 @@ const AppLogedin = () => {
     
     const READ_QUERY = gql`
     {
-        message
+        totTBTyear
     }
     `;
 
-    const {loading, error, data} = useQuery(READ_QUERY)
-    console.log("DATA IS", data, error);
+    const {loading, error, data} = useQuery(READ_QUERY) 
 return(
     <>
     <div className= {`bg-secondary ${Styles.grid}`} style={{ width:'80%', margin:'0 auto'}}>
@@ -26,7 +25,7 @@ return(
         {error && `ERROR HAI`}
         </h5>
         <div style={{display:'flex'}}>
-        <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'/>
+        <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' total={data && data.totTBTyear} secinfo='Total Attendees'/>
         <DashboardInfoCards title='Training' firstinfo='Tot Traing' secinfo='Total Attendees'/>
         </div>
         </div>

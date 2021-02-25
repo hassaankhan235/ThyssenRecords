@@ -5,24 +5,25 @@ const q = fauna.query;
 
 const typeDefs = gql`
   type Query {
-    message: String
+    totTBTyear: Int
   }
 `;
 
 const resolvers = {
     Query: {
-      message: async (parent, args, context) => {
+      totTBTyear: async (parent, args, context) => {
         try{
           var client = new fauna.Client({secret: "fnAD8k-3RiACB8K1iVEw5OgNm-JRLgWZHOuYAd7v"})
           let res = await client.query(
-            q.Get(
-              q.Ref(q.Collection("tk-tech"), "290322190748877313")
-          ))
+            q.Count(
+              q.Range(q.Match(q.Index("tbtBYperiod")), q.Date("2020-01-01"), q.Date("2021-12-12"))
+            )
+          )
           // console.log('CONNECTING');
           // console.log(res.data[0].data.technician);
           // console.log('CONNECTING');
           console.log('######',res);
-          return "Hello From Haskhan"
+          return res
         } 
         catch(err){
           console.log("ERROR",err);

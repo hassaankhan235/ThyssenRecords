@@ -3,7 +3,7 @@ import React from 'react'
 import Styles from './Dash.module.css'
 
 function DashboardInfoCards(props) {
-    const {title,  firstinfo, secinfo} = props
+    const {title,  firstinfo, secinfo, total} = props
     return (
         <div>
             <div class="card mr-2" style={{ width: "18rem"}} >
@@ -13,7 +13,7 @@ function DashboardInfoCards(props) {
     
     <ul class= {`list-group` }>
   <li className=  {`list-group-item bg-info ${Styles.textyellow} ${Styles.flex} ${Styles.borderYellow} ` } > {firstinfo}  
-  <p className={Styles.info}> 6 </p>   
+  <p className={Styles.info}> {total} </p>   
   </li>
   <li className=  {`list-group-item bg-info ${Styles.textyellow} ${Styles.flex} ${Styles.borderYellow}` } > {secinfo}  
   <p className={Styles.info}> 6 </p>   
