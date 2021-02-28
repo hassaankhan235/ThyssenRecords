@@ -9,6 +9,7 @@ let month = d.getMonth() + 1
 month = month < 10 ? `0${month}` : month 
 console.log('MONTH', month);
 let date = d.getDate()
+date = date < 10 ? `0${date}` : date
 
 const typeDefs = gql`
   type Query {

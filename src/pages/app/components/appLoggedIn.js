@@ -1,9 +1,9 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 
-import DashboardInfoCards from './components/DashboardInfoCards'
-import Styles from './components/Dash.module.css'
-import DashboardFootCard from './components/DashboardFootCard'
+import DashboardInfoCards from './DashboardInfoCards'
+import Styles from './Dash.module.css'
+import DashboardFootCard from './DashboardFootCard'
 
 
 const AppLogedin = () => {  

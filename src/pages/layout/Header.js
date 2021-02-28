@@ -13,7 +13,7 @@ function Header() {
           <a class="nav-link" href="/"> Dashboard </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/Toolbox"> Toolbox </a>
+          <a class="nav-link" href="/app/AddTbt"> Toolbox </a>
         </li>
       </ul>
     </div>
