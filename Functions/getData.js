@@ -96,7 +96,7 @@ const resolvers = {
       },
       SUBtotAttendeesYear: async(parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: "fnAD8k-3RiACB8K1iVEw5OgNm-JRLgWZHOuYAd7v"})
+          var client = new fauna.Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -117,7 +117,7 @@ const resolvers = {
       SUBtotTBTYear: async() => {
         try{
           
-          var client = new fauna.Client({secret: "fnAD8k-3RiACB8K1iVEw5OgNm-JRLgWZHOuYAd7v"})
+          var client = new fauna.Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('SUBtbt-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
