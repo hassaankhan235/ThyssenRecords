@@ -1,4 +1,4 @@
-import React , {useContext} from 'react'
+import React , {useContext, useState} from 'react'
 
 import Layout from '../layout/layout'
 import WelcomeCard from './components/WelcomeCard'
@@ -8,34 +8,18 @@ import Styles from './components/Dash.module.css'
 
 
 function AddTbt() {
-    
+    const [autoHeight, SetautoHeight] = useState(false)
+    const [techlength, Settechlength] = useState([ "Technician's Name",'Technician ID / Iqama'])
     const AddTechnicians = (e) => {
         e.preventDefault()
-        
-    return(    <div className="modal"  role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>)
+        SetautoHeight(true)
+        Settechlength([...techlength, "Technician's Name",'Technician ID / Iqama'])
     }
+
     const {user} = useContext(IdentityContext)
 
     return (
-        <div className= {`bg-secondary text-light ${Styles.fh}`} >
+        <div className= {`bg-secondary text-light ${autoHeight? Styles.auto: Styles.fh}`} >
         <Layout />
 
         {user.email ? 
@@ -81,45 +65,29 @@ function AddTbt() {
 </div>
 </fieldset>
 
-<div class="form-group row">
-    <label for="techname" class="col-sm-2 col-form-label">Technician Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="techname" placeholder="Select technician's name" />
-    </div>
-  </div>
+{techlength.map((val) => {
 
-  <div class="form-group row">
-    <label for="techid" class="col-sm-2 col-form-label">Technician ID / Iqama</label>
+return(<div class="form-group row">
+    <label for="techname" class="col-sm-2 col-form-label"> {val} </label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="techid" placeholder="Select technician's ID" />
+      <input type="text" class="form-control" id="techname" placeholder= {`Enter ${val}`} />
     </div>
   </div>
+)
+})}
 
-  <div class="form-group row">
-    <label for="techname" class="col-sm-2 col-form-label">Technician Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="techname" placeholder="Select technician's name" />
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="techid" class="col-sm-2 col-form-label">Technician ID / Iqama</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="techid" placeholder="Select technician's ID" />
-    </div>
-  </div>
   <div style={{display:'flex'}}>
-  <input className='btn btn-success ml-auto' type='submit' value='Add more' onClick={(e) => {AddTechnicians(e)}}/> </div>
+  <input className='btn btn-success ml-auto' type='submit' value='Add more   +' onClick={(e) => {AddTechnicians(e)}}/> </div>
 
   <div class="form-group row mt-3">
-    <label for="site" class="col-sm-2 col-form-label">Site Name</label>
+  <label for="site" class="col-sm-2 col-form-label">Site Name</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="site" placeholder="Enter Site Name" />
     </div>
   </div>
 
   <div style={{display:'flex'}}>
-  <input className='btn btn-primary ml-auto' type='submit' value='Save' /> </div>
+  <input className='btn btn-primary ml-auto mb-3' type='submit' value='Save' /> </div>
 </form>
         </div>
         </div>
