@@ -1,0 +1,47 @@
+
+.borderedSuggestion{
+    position: absolute;
+    width: 80%;
+    left: 18%;
+    margin-top: -1rem;
+    padding: 0px 0px 0 0px;
+    z-index: 100;
+    background-color: white;
+    color: blue;
+}
+
+.container{
+    width: 100%;;
+}
+
+.ulist{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.text{
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 10px;
+    display: block;
+    z-index: 2;
+    background-color: white;
+    height: auto;
+    color: teal;
+    list-style-type: circle;
+    text-align: left;
+}
+.text:hover{
+        background-color: rgb(164, 204, 255);
+}
+
+.input{
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 10px;
+    width: 100%;
+    text-align: left;
+    height: 40px;
+}
+
+.NoMargin{
+    margin-bottom: 0;
+}

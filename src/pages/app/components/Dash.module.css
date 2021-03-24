@@ -1,5 +1,6 @@
 :root{
-    --yellow: rgba(218, 255, 7, 0.92)
+    --yellow: #ff851b;
+    --white: #ffffff;
 }
 
 .info{
@@ -8,8 +9,8 @@
     width: 20%;
     border-radius: 5px;
     margin-left: auto;
-    color: black;
-    background-color: var(--yellow);
+    color: var(--yellow);
+    background-color: var(--white);
 }
 .flex{
 display: flex;
@@ -26,10 +27,11 @@ display: flex;
     height: auto;
 }
 .borderYellow{
-    border-color: var(--yellow);
+    border-color: var(--white);
 }
 .textyellow{
-    color: var(--yellow);
+    background-color: var(--yellow);
+    color: var(--white);
     text-transform: uppercase;
     font-weight: bold;
 }

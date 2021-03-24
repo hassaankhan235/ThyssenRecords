@@ -10,21 +10,21 @@ const AppLogedin = () => {
     
     const READ_QUERY = gql`
     {
-        TKtotTBTMonth
-        TKtotAttendeesMonth
-        TKtotTBTYear
-        TKtotAttendeesYear
-        SUBtotTBTMonth
-        SUBtotAttendeesMonth
-        SUBtotAttendeesYear
-        SUBtotTBTYear
+        NItotTBTMonth
+        NItotAttendeesMonth
+        NItotTBTYear
+        NItotAttendeesYear
+        SERtotTBTMonth
+        SERtotAttendeesMonth
+        SERtotAttendeesYear
+        SERtotTBTYear
     }
     `;
     
     
 
     const {loading, error, data} = useQuery(READ_QUERY)
-    console.log('TKtotAttendeesMonth', data); 
+    console.log('NItotAttendeesMonth', data); 
 
 return(
     <>
@@ -36,9 +36,9 @@ return(
         {error && `ERROR HAI`}
         </h5>
         <div style={{display:'flex'}}>
-        <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' firsttotal={data && data.TKtotTBTMonth} 
-        secondtotal={data && data.TKtotAttendeesMonth} secinfo='Total Attendees' thirdtotal={data && data.SUBtotTBTMonth}
-        fourthtotal= {data && data.SUBtotAttendeesMonth} />
+        <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' firsttotal={data && data.NItotTBTMonth} 
+        secondtotal={data && data.NItotAttendeesMonth} secinfo='Total Attendees' thirdtotal={data && data.SERtotTBTMonth}
+        fourthtotal= {data && data.SERtotAttendeesMonth} />
         <DashboardInfoCards title='Training' firstinfo='Tot Traing'  secinfo='Total Attendees'/>
         </div>
         </div>
@@ -47,13 +47,14 @@ return(
         <h5 className='text-light'>     THIS YEAR </h5> 
         <div style={{display:'flex'}}>
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'
-        firsttotal={data && data.TKtotTBTYear} secondtotal= {data && data.TKtotAttendeesYear}
-        thirdtotal={data && data.SUBtotTBTYear} fourthtotal={data && data.SUBtotAttendeesYear} />
+        firsttotal={data && data.NItotTBTYear} secondtotal= {data && data.NItotAttendeesYear}
+        thirdtotal={data && data.SERtotTBTYear} fourthtotal={data && data.SERtotAttendeesYear} />
         <DashboardInfoCards title='Training' firstinfo='Tot Traing' secinfo='Total Attendees'/>
         </div>
         </div>
     </div>
         <DashboardFootCard />
+
     </>
 )
 }

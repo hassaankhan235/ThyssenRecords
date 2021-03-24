@@ -1,0 +1,52 @@
+.Menul{
+   background-color:#ff851b;
+   list-style-type: none;
+   height: 100%;
+   padding: 0%;
+   padding-bottom: 20px;
+   margin: 0%;
+   border: 0px;
+   border-radius: 0 0 15px 15px;
+}
+
+.menuli{
+    padding-left: 20px;
+    color: white;
+}
+.menuli:hover{
+    background-color: blueviolet;
+    
+}
+.menulink{
+    color: white;
+}
+.menulink:hover{
+    color: white;
+    text-decoration: none;
+}
+.menu{
+    padding: 0%;
+    padding-left:10px ;
+    margin: 0%;
+    /* border: 10px solid white; */
+    position: absolute;
+    top: 9.5%;
+    height:max-content;
+    border-radius: 0 0 15px 15px;
+    left: 0px;
+    width: 20%;
+}
+h4{
+    color: blue;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+.MenuButton{
+    color: white;
+    border: 0px;
+    background-color: #ff851b;
+}
+.MenuButton:focus{
+    border: 0px;
+    outline: 0px;   
+}

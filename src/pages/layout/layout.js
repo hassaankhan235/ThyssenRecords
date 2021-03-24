@@ -1,10 +1,11 @@
 import React from 'react'
 
 import Header from './Header' 
-function Layout() {
+function Layout(props) {
+  const {setShowMenu} = props
   return (
     <div>
-      <Header />
+      <Header/>
     </div>
   )
 }
