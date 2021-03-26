@@ -6,7 +6,7 @@ function DashboardInfoCards(props) {
     const {title,  firstinfo, secinfo, firsttotal, secondtotal, thirdtotal, fourthtotal} = props
     return (
         <div>
-            <div class="card mr-2" style={{ width: "18rem"}} >
+            <div className="card mr-2" style={{ width: "18rem"}} >
   <div className="card-body">
     <h5 className="card-title"> {title} </h5>
     <h6 className="card-subtitle mb-2 text-primary"> Thyssenkrupp </h6>

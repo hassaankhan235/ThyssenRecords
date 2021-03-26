@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Styles from './autocomp.module.css'
+import Styles from '../../../autosuggest/autocomp.module.css'
 
 function AutoSuggestinput(props) {
     const {name, value, disabled, onchange,lostFocus,setState} = props

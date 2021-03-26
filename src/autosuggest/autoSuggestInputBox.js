@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import AutoSuggestinput from './autoSuggestinput'
+import AutoSuggestinput from '../pages/app/components/autoSuggestinput'
 import Styles from './autocomp.module.css'
 
 const AutoSuggestInputBox = (props) => {

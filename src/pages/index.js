@@ -4,7 +4,7 @@ import MenuContext from "../../MenuContext"
 
 import Layout from './layout/layout'
 import LoginCard from './app/components/LoginCard'
-import WelcomeCard from './app/components/WelcomeCard'
+import WelcomeCard from '../WelcomeCard'
 import AppLogedin from './app/components/appLoggedIn'
 import Styles from './app/components/Dash.module.css'
 import MenuCar from "./app/components/MenuCar"

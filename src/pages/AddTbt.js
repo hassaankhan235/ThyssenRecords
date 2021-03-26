@@ -2,13 +2,13 @@ import React , {useContext, useState} from 'react'
 
 
 import Layout from './layout/layout'
-import WelcomeCard from './app/components/WelcomeCard'
+import WelcomeCard from '../WelcomeCard'
 import LoginCard from './app/components/LoginCard'
 import IdentityContext from '../../IdentityContext'
 import Styles from './app/components/Dash.module.css'
-import AutoSuggestInputBox from './app/components/autoSuggestInputBox'
+import AutoSuggestInputBox from '../autosuggest/autoSuggestInputBox'
 import { gql, useQuery } from '@apollo/client'
-import SubmitTbt from './app/SubmitTbt';
+import SubmitTbt from '../SubmitTbt';
 import MenuContext from '../../MenuContext'
 import MenuCar from './app/components/MenuCar'
 

@@ -18,7 +18,7 @@ mutation WRITEniTBT($topic:String, $site: String, $date: String, $id: [String]){
 function SubmitTbt(props) {
     
     const {tbtdetails, reset} = props
-    // console.log("TBT TO SUBMIT" ,tbtDetails,tbtDetails[0].dept);
+    console.log("TBT TO SUBMIT" ,tbtdetails[0].dept);
     const id = tbtdetails.map(tbtDetail => tbtDetail.id)
     const filteredId = id.filter(ufid => ufid !== undefined)
     console.log('ID is', filteredId);

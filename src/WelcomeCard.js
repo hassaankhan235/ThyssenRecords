@@ -1,6 +1,6 @@
 
 import React, {useContext} from 'react'
-import IdentityContext from '../../../../IdentityContext'
+import IdentityContext from '../IdentityContext'
 
 function WelcomeCard() {
     const {user} = useContext(IdentityContext)

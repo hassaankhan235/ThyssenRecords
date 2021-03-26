@@ -1,14 +1,14 @@
 import React ,{useState, useContext} from 'react'
 import { gql, useQuery } from '@apollo/client'
 
-import Matrix from './app/components/TBTMatrix/Matrix'
-import TableHead from './app/TableHead'
-import WelcomeCard from './app/components/WelcomeCard'
+import Matrix from '../TBTMatrix/Matrix'
+import TableHead from '../TBTMatrix/TableHead'
+import WelcomeCard from '../WelcomeCard'
 import LoginCard from './app/components/LoginCard'
 import Layout from './layout/layout'
 import IdentityContext from '../../IdentityContext'
 import Styles from './app/components/Dash.module.css'
-import DeptControl from './app/components/TBTMatrix/DeptControl'
+import DeptControl from '../TBTMatrix/TableHead'
 
 function MatrixControl() {
     
