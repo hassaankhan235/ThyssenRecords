@@ -2,3 +2,6 @@
     command = 'gatsby build'
     functions = "Functions/"
     publish = 'public/'
+
+[context.production]
+    environment = { MY_SECRET = "fnAD8k-3RiACB8K1iVEw5OgNm-JRLgWZHOuYAd7v"}
