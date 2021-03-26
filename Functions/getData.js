@@ -263,7 +263,7 @@ const resolvers = {
               q.Lambda(["x", "y"], q.Select(["data"], q.Get(q.Var("y"))))
             )
           )
-          console.log("NItotTBTMonth********",res);
+          console.log("SER 6 Months TBT********",res);
           return res.data
         } 
         catch(err){
@@ -273,7 +273,7 @@ const resolvers = {
     },
     Mutation: {
       writeNItbt: async(_, tbtDetails) => {
-        console.log('TBT DETAILS', tbtDetails);
+        console.log('NI TBT DETAILS', tbtDetails);
         try{
           var client = new fauna.Client({secret: process.env.MY_SECRET})
           var res = await client.query(
@@ -289,18 +289,19 @@ const resolvers = {
         catch(err){console.log('ERROR', err);}
       },
       writeSERtbt: async(_, techDetails) => {
-        console.log('TBT DETAILS', techDetails);
+        console.log('SERVICE TBT DETAILS', techDetails);
         try{
           var client = new fauna.Client({secret: process.env.MY_SECRET})
           var res = await client.query(
             q.Create(q.Collection('ser-tbt'),{data:
             {
-              topic: tbtDetails.topic,
-              site: tbtDetails.site,
-              date: tbtDetails.date,
-              id: tbtDetails.id
+              topic: techDetails.topic,
+              site: techDetails.site,
+              date: techDetails.date,
+              id: techDetails.id
             }}
             ))
+            console.log(res);
         }
         catch(err){console.log('ERROR', err);}
       },

@@ -6,5 +6,7 @@ export const client = new ApolloClient({
         uri: "/.netlify/functions/getData",
         fetch
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        dataIdFromObject: o => (o._id ? `${o.__typename}:${o._id}`: null),
+      })
 })
