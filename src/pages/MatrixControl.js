@@ -2,13 +2,12 @@ import React ,{useState, useContext} from 'react'
 import { gql, useQuery } from '@apollo/client'
 
 import Matrix from '../TBTMatrix/Matrix'
-import TableHead from '../TBTMatrix/TableHead'
 import WelcomeCard from '../WelcomeCard'
 import LoginCard from './app/components/LoginCard'
 import Layout from './layout/layout'
 import IdentityContext from '../../IdentityContext'
 import Styles from './app/components/Dash.module.css'
-import DeptControl from '../TBTMatrix/TableHead'
+import DeptControl from '../TBTMatrix/DeptControl'
 
 function MatrixControl() {
     
@@ -38,11 +37,13 @@ function MatrixControl() {
     const {user} = useContext(IdentityContext)
     const {loading, error, data} = useQuery(READ_QUERY)
     const [autoHeight] = useState(false)
-    
+    console.log(data);
 
     if(loading) return"loading"
+    if(error) return "error"
     else{
     return (
+        data &&
         <div className={`bg-secondary text-light ${autoHeight? Styles.auto: Styles.fh}`}>
         <Layout />
         {user.email ? <WelcomeCard /> : <LoginCard />}
@@ -52,7 +53,16 @@ function MatrixControl() {
 
         <div className="table-responsive">
             <table className="table table-striped">
-            <TableHead tbtList={data.getTbtList} />
+      
+    <thead>
+     <tr>
+     <th scope="col" style={{backgroundColor:'blueviolet',color:'white'}}> Name </th>
+       {data.getTbtList.map(topic => {
+           return (<th key={topic} scope="col" style={{backgroundColor:'blueviolet',color:'white'}}> {topic} </th>)
+       })}
+     </tr>
+   </thead>
+
             
             {dept==="SER" ? data.getTechnicians_SER.map(tech => {
                return <Matrix key={`${tech.id}`} TechId={`${tech.id}`} tbtList={data.getTbtList} TechName={tech.name}
