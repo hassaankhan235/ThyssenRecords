@@ -17,9 +17,9 @@ mutation WRITEniTBT($topic:String, $site: String, $date: String, $id: [String]){
 
 function SubmitTbt(props) {
     
-    const {tbtDetails, reset} = props
+    const {tbtdetails, reset} = props
     // console.log("TBT TO SUBMIT" ,tbtDetails,tbtDetails[0].dept);
-    const id = tbtDetails.map(tbtDetail => tbtDetail.id)
+    const id = tbtdetails.map(tbtDetail => tbtDetail.id)
     const filteredId = id.filter(ufid => ufid !== undefined)
     console.log('ID is', filteredId);
 
@@ -28,15 +28,15 @@ function SubmitTbt(props) {
 
     const handleSubmit =  async(e) => {
         e.preventDefault()
-        tbtDetails[0].dept === 'NI' ?
+        tbtdetails[0].dept === 'NI' ?
         await writeNItbt({variables: {
-            topic:tbtDetails[0].topic,site:tbtDetails[0].sitename,
-            date:tbtDetails[0].date, id: filteredId
+            topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
+            date:tbtdetails[0].date, id: filteredId
         }})
         :
         await writeSERtbt({variables: {
-            topic:tbtDetails[0].topic,site:tbtDetails[0].sitename,
-            date:tbtDetails[0].date, id: filteredId
+            topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
+            date:tbtdetails[0].date, id: filteredId
         }})
         reset(e)
       }

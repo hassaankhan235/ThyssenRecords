@@ -176,8 +176,8 @@ else
     </div>
   </div>
 
-  <SubmitTbt tbtDetails={tbtDetails} reset={resetState}/>
-
+  <SubmitTbt tbtdetails={tbtDetails} reset={resetState}/>
+  
 </form>
         </div>
         {Menustatus ? <MenuCar /> : null}
