@@ -12,7 +12,17 @@ const WRITE_SER_TBT = gql`
 mutation WRITEniTBT($topic:String, $site: String, $date: String, $id: [String]){
     writeSERtbt(topic: $topic, site: $site, date: $date, id: $id)
 }
+`
+const WRITE_NI_SA = gql`
+mutation WRITEniSA($topic:String, $site: String, $date: String, $id: [String]){
+    writeNISA(topic: $topic, site: $site, date: $date, id: $id)
+}
 ` 
+const WRITE_SER_SA = gql`
+mutation WRITEserSA($topic:String, $site: String, $date: String, $id: [String]){
+    writeSERSA(topic: $topic, site: $site, date: $date, id: $id)
+}
+`
 
 
 function SubmitTbt(props) {
@@ -25,10 +35,14 @@ function SubmitTbt(props) {
 
     const [writeNItbt] = useMutation(WRITE_NI_TBT)
     const [writeSERtbt] = useMutation(WRITE_SER_TBT)
+    const [writeNISA]  = useMutation(WRITE_NI_SA)
+    const [writeSERSA] = useMutation(WRITE_SER_SA)
 
     const handleSubmit =  async(e) => {
         e.preventDefault()
-        tbtdetails[0].dept === 'NI' ?
+        if(tbtdetails[0].type === 'TBT')
+        {
+            tbtdetails[0].dept === 'NI' ?
         await writeNItbt({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, id: filteredId
@@ -38,6 +52,19 @@ function SubmitTbt(props) {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, id: filteredId
         }})
+        }
+        else{
+            tbtdetails[0].dept === 'NI' ?
+        await writeNISA({variables: {
+            topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
+            date:tbtdetails[0].date, id: filteredId
+        }})
+        :
+        await writeSERSA({variables: {
+            topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
+            date:tbtdetails[0].date, id: filteredId
+        }})
+        }
         reset(e)
       }
 

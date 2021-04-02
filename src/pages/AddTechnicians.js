@@ -39,9 +39,9 @@ function AddTechnicians() {
 
     <form>
   
-    <div class="form-group row">
-    <label htmlFor="inputEmail3" class="col-sm-2 col-form-label">Full Name</label>
-    <div class="col-sm-10">
+    <div className="form-group row">
+    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Full Name</label>
+    <div className="col-sm-10">
       <input type="text" 
       name="name"
       className="form-control" 
@@ -63,9 +63,9 @@ function AddTechnicians() {
     </div>
   </div>
 
-  <div class="form-group row">
+  <div className="form-group row">
     <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Company Name</label>
-    <div class="col-sm-10">
+    <div className="col-sm-10">
       <input 
       name="company"
       type="text" 

@@ -14,7 +14,9 @@ function MenuCar() {
             <li className={Styles.menuli}>
           <a className={Styles.menulink} href="../../AddTechnicians"> Add Technicians </a>
         </li>
-            <li className={Styles.menuli}> Add Toolbox Topics </li>
+            <li className={Styles.menuli}> 
+            <a className={Styles.menulink} href="../../AddTopic"> Add TBT / S-Alert Topic </a> 
+            </li>
             <li className={Styles.menuli}>
           <a className={Styles.menulink} href="../../AddTbt"> Add Toolbox </a>
         </li>

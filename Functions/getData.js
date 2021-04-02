@@ -1,8 +1,11 @@
-const { ApolloServer, gql } = require("apollo-server-lambda");
-const fauna = require('faunadb');
+
+const { ApolloServer, gql, makeExecutableSchema } = require("apollo-server-lambda");
+const { query, Client } = require('faunadb');
+const { merge } = require("lodash");
+const {getSAresolver, SAtypeDefs} = require('./getSafetyAlert') 
 // const { default: context } = require("react-bootstrap/esm/AccordionContext");
 
-const q = fauna.query;
+const q = query;
 let d = new Date();
 let year = d.getFullYear()
 let month = d.getMonth() + 1
@@ -38,6 +41,9 @@ type Query {
     getTbtList:  [String]
     getNiTbt6Months : [tbt]
     getSerTbt6Months : [tbt]
+    getSaList:  [String]
+    getNiSA6Months: [tbt]
+    getSerSA6Months : [tbt]
 }
 
 type Mutation {
@@ -45,6 +51,9 @@ type Mutation {
   writeSERtbt(topic:String, site: String, date: String, id: [String]): String
   WriteNItech(name:String, id:String, company:String): String
   WriteSERtech(name:String, id:String, company:String): String
+  writeNISA(topic:String, site: String, date: String, id: [String]): String
+  writeSERSA(topic:String, site: String, date: String, id: [String]): String 
+  writeTbtTopic(topic:String, type:String) : String
 }
 `;
 
@@ -52,7 +61,7 @@ const resolvers = {
     Query: {
       NItotTBTMonth: async (parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: 'fnAEFY3AhIACBS71dX5TNClK3L0OVDFJYdiesU5J'})
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('NItbt-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
@@ -65,7 +74,7 @@ const resolvers = {
       },
       NItotAttendeesMonth: async(parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -86,7 +95,7 @@ const resolvers = {
       SERtotTBTMonth: async() => {
         try{
           
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('SERtbt-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
@@ -99,7 +108,7 @@ const resolvers = {
       },
       SERtotAttendeesMonth: async(parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -119,7 +128,7 @@ const resolvers = {
       },
       SERtotAttendeesYear: async(parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -140,7 +149,7 @@ const resolvers = {
       SERtotTBTYear: async() => {
         try{
           
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('SERtbt-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
@@ -154,7 +163,7 @@ const resolvers = {
         try{
           var d = new Date();
           var year = d.getFullYear()
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('NItbt-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
@@ -166,7 +175,7 @@ const resolvers = {
       },
       NItotAttendeesYear: async(parent, args, context) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -186,7 +195,7 @@ const resolvers = {
       },
       getTechnicians_NI: async() => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -203,7 +212,7 @@ const resolvers = {
       },
       getTechnicians_SER: async() => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = [];
           res = await client.query(
             q.Map(
@@ -220,7 +229,7 @@ const resolvers = {
       },
       getTbtList: async() => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           res = await client.query(
             q.Paginate(
               q.Match(q.Index('getTbtList')))
@@ -235,7 +244,7 @@ const resolvers = {
       getNiTbt6Months: async (parent, args, context) => {
         try{
           let sixthmnth = month <= 6 ? 1 : 7  
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Map(
               q.Paginate(
@@ -254,7 +263,7 @@ const resolvers = {
       getSerTbt6Months: async (parent, args, context) => {
         try{
           let sixthmnth = month <= 6 ? 1 : 7  
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           let res = await client.query(
             q.Map(
               q.Paginate(
@@ -275,7 +284,7 @@ const resolvers = {
       writeNItbt: async(_, tbtDetails) => {
         console.log('NI TBT DETAILS', tbtDetails);
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           var res = await client.query(
             q.Create(q.Collection('ni-tbt'),{data:
             {
@@ -291,7 +300,7 @@ const resolvers = {
       writeSERtbt: async(_, techDetails) => {
         console.log('SERVICE TBT DETAILS', techDetails);
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           var res = await client.query(
             q.Create(q.Collection('ser-tbt'),{data:
             {
@@ -307,7 +316,7 @@ const resolvers = {
       },
       WriteNItech: async(_, techDetails) => {
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           var res = await client.query(
             q.Create(q.Collection('ni-tech'),{data:
             {
@@ -322,7 +331,7 @@ const resolvers = {
       WriteSERtech: async(_, techDetails) => {
         console.log('Tech DETAILS', techDetails);
         try{
-          var client = new fauna.Client({secret: process.env.MY_SECRET})
+          var client = new Client({secret: process.env.MY_SECRET})
           var res = await client.query(
             q.Create(q.Collection('ser-tech'),{data:
             {
@@ -336,6 +345,11 @@ const resolvers = {
       },
     },
 }
+
+makeExecutableSchema({
+  typeDefs: [typeDefs, SAtypeDefs],
+  resolvers: merge(resolvers, getSAresolver)
+})
 
 const server = new ApolloServer({
     typeDefs,

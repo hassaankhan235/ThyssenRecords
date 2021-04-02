@@ -1,5 +1,5 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 import DashboardInfoCards from './DashboardInfoCards'
 import Styles from './Dash.module.css'
@@ -20,11 +20,12 @@ const AppLogedin = () => {
         SERtotTBTYear
     }
     `;
-    
+
     
 
-    const {loading, error, data} = useQuery(READ_QUERY)
-    console.log('NItotAttendeesMonth', data); 
+const {loading, error, data} = useQuery(READ_QUERY)
+console.log('NItotAttendeesMonth', data); 
+
 
 return(
     <>

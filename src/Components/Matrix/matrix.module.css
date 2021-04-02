@@ -1,0 +1,13 @@
+.matrixSettings{
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(226, 198, 43);
+    background-color: blueviolet;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.TechnicianID{
+    display: block;
+    color: rgb(15, 15, 15);
+    font-weight: 500;
+}
