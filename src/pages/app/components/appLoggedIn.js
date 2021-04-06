@@ -4,7 +4,7 @@ import { gql, useQuery } from '@apollo/client'
 import DashboardInfoCards from './DashboardInfoCards'
 import Styles from './Dash.module.css'
 import DashboardFootCard from './DashboardFootCard'
-import Loader from '../../../Components/loader'
+
 
 
 const AppLogedin = () => {  
@@ -32,8 +32,8 @@ console.log('NItotAttendeesMonth', data);
 
 
 return(
-    <div className='container-fluid'>
-    <div className= {`bg-secondary ${Styles.grid}`} style={{ width:'80%', margin:'0 auto'}}>
+    <div >
+    <div className= {`bg-secondary ${Styles.grid} ${Styles.mycontainer}`} style={{ width:'80%', margin:'0 auto'}}>
         <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
         <h5 className='text-light card' style={{width:'100%'}}> 
         {loading && `Still Loading baba`}
@@ -49,7 +49,7 @@ return(
         </div>
         </div>
 
-        <div className='ml-5' style={{display:'flex', flexDirection:'column'}}>
+        <div className={`${Styles.marginLeft}`} style={{display:'flex', flexDirection:'column'}}>
         <h5 className='text-light card'>   
         <span className={`${Styles.periodHeading}`}> THIS YEAR </span> 
         </h5> 

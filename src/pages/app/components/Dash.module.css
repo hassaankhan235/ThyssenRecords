@@ -59,3 +59,16 @@ display: flex;
     padding-bottom: 5px;
     background-color: var(--yellow);
 }
+.marginLeft{
+    margin-left: 50px;
+}
+
+@media only screen and (max-width: 900px) {
+    .mycontainer{
+    display: flex;
+    flex-direction: column;    
+    }
+    .marginLeft{
+        margin-left: 0px;
+    }
+}
