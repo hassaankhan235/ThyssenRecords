@@ -169,7 +169,7 @@ exports.TechBasedDataResolver = {
                     q.Lambda( ['x', 'y'], q.Get(q.Var('y') ) )
                     )
               )
-              console.log("********************* All SER TECH TBT ********",res, args);
+              // console.log("********************* All SER TECH TBT ********",res, args);
               return res.data
             } 
             catch(err){
@@ -178,5 +178,17 @@ exports.TechBasedDataResolver = {
           },
 },
 Mutation: {
+  deleteSerTbt: async(_, args) => {
+    console.log('NI TBT DETAILS', args);
+    try{
+      var client = new fauna.Client({secret: process.env.MY_SECRET})
+      var res = await client.query(
+        q.Delete(q.Ref(q.Collection('ser-tbt'), args.Refid))
+      )
+      console.log("************** RESPONSE ****************", res);
+      return JSON.stringify(res)
+    }
+    catch(err){console.log('ERROR', err);}
+  },
 }
 }

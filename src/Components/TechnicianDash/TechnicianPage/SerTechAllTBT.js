@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import {gql, useQuery} from '@apollo/client'
 
-import Styles from '../table.module.css'
 import Loader from '../../loader'
+import DeleteTbt from '../../Submit/DeleteTbt'
 
 function SerTechAllTBT(props) {
 
-    const [tbtToDel, setTbtToDel] = useState()
-    const deleteTBT = (id) => {
-        alert(id)
-    }
+
 
 const READ_QUERY = gql`
 query AllSERTBTByTechnicianId($id: String){
@@ -48,8 +45,7 @@ if(loading) return <Loader />
             <td> {loading? <Loader /> : tbt.data.date} </td>
             <td> {loading? <Loader /> : tbt.data.site} </td>
             <td> {loading? <Loader /> : tbt.data.topic}  </td>
-            <td onClick ={() => deleteTBT(tbt.ref.id)}> 
-            <span className={Styles.DelRecord}> Delete Record </span> </td> 
+            <td> <DeleteTbt Refid={tbt.ref.id} /> </td> 
             </tr>
           )
       })}

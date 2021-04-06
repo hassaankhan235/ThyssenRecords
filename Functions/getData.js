@@ -85,6 +85,7 @@ type Mutation {
   writeSERSA(topic:String, site: String, date: String, id: [String]): String 
   writeTbtTopic(topic:String, type:String) : String
   writeSaTopic(topic:String, type:String, date:String, location:String) : String
+  deleteSerTbt(Refid: String): String
 }
 `;
 
