@@ -32,7 +32,7 @@ console.log('NItotAttendeesMonth', data);
 
 
 return(
-    <>
+    <div className='container-fluid'>
     <div className= {`bg-secondary ${Styles.grid}`} style={{ width:'80%', margin:'0 auto'}}>
         <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
         <h5 className='text-light card' style={{width:'100%'}}> 
@@ -64,7 +64,7 @@ return(
     </div>
         <DashboardFootCard SumNiTech={data && data.SumOfNiTechnician} />
 
-    </>
+    </div>
 )
 }
 
