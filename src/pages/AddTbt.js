@@ -8,7 +8,7 @@ import IdentityContext from '../../IdentityContext'
 import Styles from './app/components/Dash.module.css'
 import AutoSuggestInputBox from '../Components/autosuggest/autoSuggestInputBox'
 import { gql, useQuery } from '@apollo/client'
-import SubmitTbt from '../SubmitTbt';
+import SubmitTbt from '../Components/Submit/SubmitTbt';
 import MenuContext from '../../MenuContext'
 import MenuCar from './app/components/MenuCar'
 import RadioBoxTemplate from '../template/RadioBoxTemplate'
@@ -144,7 +144,7 @@ function AddTbt() {
            General Toolbox Talk
           </label>
         </div>
-
+        
         <div className="form-check">
           <input className="form-check-input" type="radio" name="type" id="gridRadios2" value="SA" 
           checked = {flag ? false : null}
@@ -171,9 +171,9 @@ function AddTbt() {
       <legend className="col-form-label col-sm-2 pt-0">Department</legend>
       <div className="col-sm-10">
         
-      <RadioBoxTemplate flag={flag} handleCheck={handleCheck} />
+      <RadioBoxTemplate flag={flag} handleCheck={handleCheck} radiofieldName={'NI'} val={'NI'} />
 
-      <RadioBoxTemplate flag={flag} handleCheck={handleCheck} />
+      <RadioBoxTemplate flag={flag} handleCheck={handleCheck} radiofieldName={'Ser'} val={'Ser'} />
        
 </div>
 </div>
@@ -185,12 +185,12 @@ function AddTbt() {
 !deptSelectFlag? null
 :
 tbtDetails.map((val, ind) => {
-if(ind == 0) return null  
+if(ind === 0) return null  
 else
 {return(
 <div key={ data.getTechnicians_NI[ind].name}>  
       <AutoSuggestInputBox index= {ind} callback={handleChange} name='name' flag = {flag} setFlag = {setFlag}
-      technicians={dept=='Ser'? data.getTechnicians_SER : data.getTechnicians_NI } reuseable={false} />
+      technicians={dept==='Ser'? data.getTechnicians_SER : data.getTechnicians_NI } reuseable={false} />
 </div>
 )}
 

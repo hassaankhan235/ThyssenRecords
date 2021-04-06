@@ -7,7 +7,7 @@ const AutoSuggestInputBox = (props) => {
     let result = []
     const [state, setState] = useState({name:'',id:'',suggest:[]})
     const {callback, index, technicians, setFlag, reuseable, labelName} = props
-    console.log('TECHNICIANS & FLAG^^^^',flag, technicians);
+    // console.log('TECHNICIANS & FLAG^^^^',flag, technicians);
     // reuseable === undefined ? true : reuseable
     var {flag} = props
     const{suggest} = state
@@ -44,8 +44,9 @@ const AutoSuggestInputBox = (props) => {
                 <ul className={Styles.ulist} >
             {suggest.map((s,i) => {
                return( 
-                   <li key={technicians[i].id} className={Styles.text} onClick={() =>suggestionSelected(s)} 
-                   onMouseOver={() =>suggestionSelected(s)} >{s}
+                   <li key={technicians[i].id} className={Styles.text} onMouseDown={() => suggestionSelected(s)}
+                    onClick={() =>suggestionSelected(s)}>
+                       {s}
                        </li>) 
             })}
             </ul>

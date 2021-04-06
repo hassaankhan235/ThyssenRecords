@@ -4,10 +4,16 @@
     background-color: blueviolet;
     border-radius: 15px;
     margin-bottom: 20px;
+    padding: 20px;
+    padding-left: 30px;
 }
 
 .TechnicianID{
     display: block;
     color: rgb(15, 15, 15);
     font-weight: 500;
+}
+u{
+    color: yellow;
+    padding-bottom: 10px;
 }

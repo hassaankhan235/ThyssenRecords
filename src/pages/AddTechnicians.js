@@ -7,7 +7,7 @@ import LoginCard from './app/components/LoginCard'
 import WelcomeCard from '../WelcomeCard'
 import Styles from './app/components/Dash.module.css'
 import Layout from './layout/layout'
-import SubmitTechnician from './app/SubmitTechnician'
+import SubmitTechnician from '../Components/Submit/SubmitTechnician'
 
 
 function AddTechnicians() {

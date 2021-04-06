@@ -24,6 +24,10 @@ function MenuCar() {
         <li className={Styles.menuli}>
           <a className={Styles.menulink} href="../../MatrixControl"> Toolbox Matrix </a>
         </li>
+
+        <li className={Styles.menuli}>
+          <a className={Styles.menulink} href="../../TechnicianDash"> Technicians Dashboard </a>
+        </li>
         </ul>
       </div>
         

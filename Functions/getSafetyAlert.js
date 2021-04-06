@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require("apollo-server-lambda");
+const { gql } = require("apollo-server-lambda");
 const fauna = require('faunadb');
 
 const q = fauna.query;
@@ -99,10 +99,10 @@ Mutation: {
       var res = await client.query(
         q.Create(q.Collection('ni-sa'),{data:
         {
-          topic: tbtDetails.topic,
-          site: tbtDetails.site,
-          date: tbtDetails.date,
-          id: tbtDetails.id
+          topic: SADetails.topic,
+          site: SADetails.site,
+          date: SADetails.date,
+          id: SADetails.id
         }}
         ))
     }
@@ -123,6 +123,22 @@ Mutation: {
         ))
         console.log(JSON.stringify(res));
         return JSON.stringify(res.ref)
+    }
+    catch(err){console.log('ERROR', err);}
+  },
+  writeSaTopic: async(_, topicDetails) => {
+    console.log('Topic Details', topicDetails);
+    try{
+      var client = new fauna.Client({secret: process.env.MY_SECRET})
+      var res = await client.query(
+        q.Create(q.Collection('sa-list'),{data:
+        {
+          topic:    topicDetails.topic,
+          type:      topicDetails.type,
+          date:      topicDetails.date,
+          location:  topicDetails.location
+        }}
+        ))
     }
     catch(err){console.log('ERROR', err);}
   },

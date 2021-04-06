@@ -1,0 +1,52 @@
+th{
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+table{
+    align-items: center;
+}
+.edit{
+    font-size: small;
+    color: rgb(67, 7, 247);
+    cursor: pointer;
+}
+.EditBox{
+    margin-bottom: 100px;
+    position: absolute;
+    margin-bottom: 100px;
+    width: 100% ;
+    background-color: blueviolet;
+}
+.footer{
+    text-align: center;
+    font-size: small;
+    padding-bottom: 10px;
+    color: whitesmoke;
+}
+.footerfirstLine{
+    padding-bottom: 0pt;
+}
+.techpageHeading{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgb(255, 238, 0);
+}
+.SAEditBox{
+    margin-bottom: 100px;
+    position: absolute;
+    margin-bottom: 100px;
+    width: 100% ;
+    background-color: rgb(84, 84, 170);
+}
+.DelRecord{
+    cursor:pointer;
+    color: rgb(255, 185, 81);
+}
+.DelRecord:hover{
+    text-decoration: underline;
+    color: rgb(253, 139, 139);
+    
+}

@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import {v4 as uuid} from 'uuid'
 
 import Styles from './matrix.module.css'
+import Loader from '../loader'
 
 function Matrix(props) {
     const {TechId, tbtList, TechName, dept, MatrixType} = props
@@ -38,8 +39,8 @@ function Matrix(props) {
 
     const {loading, error, data} = useQuery(READ_QUERY)
 
-    if(loading) return 'loading'
-
+    if(loading) return <Loader />
+    if(error) return `Error Loading ${error}`
     
     else{
         var NiTbt6Months, SerTbt6Months;
@@ -124,8 +125,7 @@ function Matrix(props) {
       <span className={Styles.TechnicianID}> {TechId} </span>  </th> 
 
       {FinalTable.map((tbt,ind) => {
-          var temp = 0
-          const diff=tbtList.findIndex(topic => topic === tbt.topic) 
+        //   const diff=tbtList.findIndex(topic => topic === tbt.topic) 
         //   console.log("Tab Row",ind,temp,diff,diff - temp === 0);
           return (             
                   <td key={uuid()} style={{backgroundColor:'orange',color:'white'}}><span style={{display:'block'}}>{tbt.date}</span>{tbt.site}</td> 

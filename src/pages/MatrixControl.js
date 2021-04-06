@@ -10,6 +10,8 @@ import MenuContext from '../../MenuContext'
 import DeptControl from '../Components/Matrix/DeptControl'
 import MenuCar from "./app/components/MenuCar"
 import MatrixTypeControl from '../template/MatrixTypeControl'
+import Pagination from '../Components/Pagination/Pagination'
+import Loader from '../Components/loader'
 
 function MatrixControl() {
     
@@ -54,16 +56,16 @@ function MatrixControl() {
     const {user} = useContext(IdentityContext)
     const {Menustatus} = useContext(MenuContext)
     const {loading, error, data} = useQuery(READ_QUERY)
-    var tbtList, tbtListuncomplete;
+    var tbtList, tbtListTotal;
     
     /* ************HERE WE SELECT THE LIST OF TBT TOPIC FOR MATRIX BASED ON TYPE OF MATRIX SELECTED FOR SAFETY ALERT
     THE TOPICS ARE FETCHED FROM SA COLLECTION IN FAUNA OTHERWISE FROM GENERAL TBT TOPICS ***************************/
     
-    if(loading) return"loading"
+    if(loading) return <Loader />
     if(error) return "error"
     else{
-        tbtListuncomplete = MatrixType === "GenTbtMatrix" ? data.getTbtList : data.getSaList
-        tbtList = tbtListuncomplete.filter((tbt,i) => {
+        tbtListTotal = MatrixType === "GenTbtMatrix" ? data.getTbtList : data.getSaList
+        tbtList = tbtListTotal.filter((tbt,i) => {
             return i>= MyPagination - 5 && i <= MyPagination
         })
         console.log("PAGINATION*************************", MyPagination);
@@ -116,24 +118,8 @@ MatrixTypeSelected &&
         </div>
     
 
- {   /* ********************************************************************************************************
-    This is pagination it increases pagination state by a value of 5 every time Next button is pressed until
-    the state value reaches the total number of TBTS
-    **********************************************************************************************************/}
-        <nav aria-label="Page navigation example">
-  <ul class="pagination">
-<a onClick={() => setPagination(prevState => {
-    console.log(prevState, tbtListuncomplete.length);
-    if ( prevState + 5 > tbtListuncomplete.length )
-    {return tbtListuncomplete.length}
-    else
-    {return prevState + 5}
-    })} href="#">
-     {MyPagination === tbtListuncomplete.length ? 'Previous' :   'Next'}
-</a>
-    </ul>
-  </nav>
- { /*  *********************************************** END OF PAGINATION *************************************/}
+        <Pagination NextPagination={setPagination} totPages={tbtListTotal} currentPagination={MyPagination} />
+
 
     </div>
 

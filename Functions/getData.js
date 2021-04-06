@@ -1,8 +1,10 @@
 
-const { ApolloServer, gql, makeExecutableSchema } = require("apollo-server-lambda");
+const { ApolloServer, gql,  makeExecutableSchema } = require("apollo-server-lambda");
 const { query, Client } = require('faunadb');
 const { merge } = require("lodash");
-const {getSAresolver, SAtypeDefs} = require('./getSafetyAlert') 
+const {getSAresolver, SAtypeDefs } = require('./getSafetyAlert') 
+const {TechBasedDataResolver}     = require('./getTechBasedData')
+
 // const { default: context } = require("react-bootstrap/esm/AccordionContext");
 
 const q = query;
@@ -27,6 +29,23 @@ type tbt {
   id: [String]
 }
 
+type List{
+  col: String 
+  id: String 
+}
+
+type tbtObject{
+  ref: List,
+  ts: String,
+  data: tbt
+}
+
+type Technician {
+  ref: List,
+  ts: String,
+  data: data
+}
+
 type Query {
     NItotTBTMonth: Int
     NItotAttendeesMonth: Int
@@ -44,7 +63,18 @@ type Query {
     getSaList:  [String]
     getNiSA6Months: [tbt]
     getSerSA6Months : [tbt]
+    SumOfNiTechnician: Int
+    NiTbtByTechnicianId(id: String): [tbtObject]
+    CountTbtByIdNI(id: String, subtractMonth: Int): Int
+    CountSAByIdNI(id: String): Int
+    CountTbtByIdSER(id: String, subtractMonth: Int): Int
+    CountSAByIdSER(id: String): Int
+    getTechnicians_NI_W_REF: [Technician]
+    getTechnicians_SER_W_REF: [Technician]
+    AllNiTbtByTechnicianId(id: String): [tbtObject]
+    AllSerTBTByTechnicianID(id: String): [tbtObject]
 }
+
 
 type Mutation {
   writeNItbt(topic:String, site: String, date: String, id: [String]): String
@@ -54,6 +84,7 @@ type Mutation {
   writeNISA(topic:String, site: String, date: String, id: [String]): String
   writeSERSA(topic:String, site: String, date: String, id: [String]): String 
   writeTbtTopic(topic:String, type:String) : String
+  writeSaTopic(topic:String, type:String, date:String, location:String) : String
 }
 `;
 
@@ -65,7 +96,7 @@ const resolvers = {
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('NItbt-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
-          console.log("NItotTBTMonth********",res);
+          // console.log("NItotTBTMonth********",res);
           return res
         } 
         catch(err){
@@ -99,7 +130,7 @@ const resolvers = {
           let res = await client.query(
             q.Count(q.Range(q.Match(q.Index('SERtbt-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
           )
-          console.log('Sub Attendance result',res);
+          // console.log('Sub Attendance result',res);
           return res 
         }
         catch(err){
@@ -203,7 +234,7 @@ const resolvers = {
               q.Lambda('ref', q.Select(['data']  , q.Get(q.Var('ref')) )   )
                 )
             )
-            console.log("TECHNICIANS#######", res)
+            // console.log("TECHNICIANS#######", res)
             return res.data
           }
           catch(err){
@@ -220,7 +251,7 @@ const resolvers = {
               q.Lambda('ref', q.Select(['data']  , q.Get(q.Var('ref')) )   )
                 )
             )
-            console.log("TECHNICIANS#######", res)
+            // console.log("TECHNICIANS#######", res)
             return res.data
           }
           catch(err){
@@ -234,7 +265,7 @@ const resolvers = {
             q.Paginate(
               q.Match(q.Index('getTbtList')))
             )
-            console.log("Toolbox Talks", res)
+            // console.log("Toolbox Talks", res)
             return res.data
           }
           catch(err){
@@ -253,7 +284,7 @@ const resolvers = {
               q.Lambda(["x", "y"], q.Select(["data"], q.Get(q.Var("y"))))
             )
           )
-          console.log("NItotTBTMonth********",res);
+          // console.log("NItotTBTMonth********",res);
           return res.data
         } 
         catch(err){
@@ -272,8 +303,38 @@ const resolvers = {
               q.Lambda(["x", "y"], q.Select(["data"], q.Get(q.Var("y"))))
             )
           )
-          console.log("SER 6 Months TBT********",res);
+          // console.log("SER 6 Months TBT********",res);
           return res.data
+        } 
+        catch(err){
+          console.log("ERROR",err);
+        }
+      },
+      SumOfNiTechnician: async () => {
+        try{  
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = await client.query(
+            q.Count((q.Match(q.Index("NItech"))))
+          )
+          // console.log("********** TOTAL NI TECHNICIAN ********",res);
+          return res
+        } 
+        catch(err){
+          console.log("ERROR",err);
+        }
+      },
+      NiTbtByTechnicianId: async (parent,args,context) => {
+        try{  
+          console.log("*****INPUTS******",parent,args,context);
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = await client.query(
+            q.Map(
+              q.Paginate(q.Match(q.Index("NITbt-ById"), "10479361")),
+              q.Lambda("person", q.Get(q.Var("person")))
+            )
+          )
+          // console.log("SER 6 Months TBT********",res);
+          return (res.data)
         } 
         catch(err){
           console.log("ERROR",err);
@@ -343,12 +404,26 @@ const resolvers = {
         }
         catch(err){console.log('ERROR', err);}
       },
+      writeTbtTopic: async(_, topicDetails) => {
+        console.log('TBT TOPIC DETAILS', topicDetails);
+        try{
+          var client = new Client({secret: process.env.MY_SECRET})
+          var res = await client.query(
+            q.Create(q.Collection('tbt-list'),{data:
+            {
+              topic: topicDetails.topic,
+              type: topicDetails.type
+            }}
+            ))
+        }
+        catch(err){console.log('ERROR', err);}
+      },
     },
 }
 
 makeExecutableSchema({
   typeDefs: [typeDefs, SAtypeDefs],
-  resolvers: merge(resolvers, getSAresolver)
+  resolvers: merge(resolvers, getSAresolver,TechBasedDataResolver)
 })
 
 const server = new ApolloServer({

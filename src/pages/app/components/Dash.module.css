@@ -38,3 +38,24 @@ display: flex;
 .small {
     font-size: smaller;
 }
+.heading{
+    text-align: center;
+    padding:2px;
+    background-color: rgb(12, 12, 12);
+    color:var(--white);;
+}
+.Dashsubheading{
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: white;
+    background-color: blueviolet;
+    text-align: center;
+}
+.periodHeading{
+    margin-bottom: 0pt;
+    width: 100%;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 5px;
+    background-color: var(--yellow);
+}

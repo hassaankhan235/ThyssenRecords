@@ -1,5 +1,4 @@
 import fetch from 'cross-fetch'
-import { RetryLink } from '@apollo/client/link/retry';
 import {ApolloClient, InMemoryCache, createHttpLink, from} from '@apollo/client'
 
 
