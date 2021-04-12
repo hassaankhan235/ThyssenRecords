@@ -102,6 +102,7 @@ Mutation: {
           topic: SADetails.topic,
           site: SADetails.site,
           date: SADetails.date,
+          category: SADetails.category,
           id: SADetails.id
         }}
         ))
@@ -118,6 +119,7 @@ Mutation: {
           topic: tbtDetails.topic,
           site: tbtDetails.site,
           date: tbtDetails.date,
+          category: tbtDetails.category,
           id: tbtDetails.id
         }}
         ))

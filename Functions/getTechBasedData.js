@@ -176,17 +176,47 @@ exports.TechBasedDataResolver = {
               console.log("ERROR",err);
             }
           },
+          AllSerSAByTechnicianID: async(_, args) => {
+            try{  
+              var client = new fauna.Client({secret: process.env.MY_SECRET})
+              let res = await client.query(
+                q.Map(
+                  q.Paginate(
+                    q.Match(q.Index('SERSa-ByIdAndDate'), args.id )
+                    ),
+                    q.Lambda( ['x', 'y'], q.Get(q.Var('y') ) )
+                    )
+              )
+              // console.log("********************* All SER TECH TBT ********",res, args);
+              return res.data
+            } 
+            catch(err){
+              console.log("ERROR",err);
+            }
+          }
 },
 Mutation: {
   deleteSerTbt: async(_, args) => {
-    console.log('NI TBT DETAILS', args);
+    console.log('SER TBT DETAILS', args);
     try{
       var client = new fauna.Client({secret: process.env.MY_SECRET})
       var res = await client.query(
         q.Delete(q.Ref(q.Collection('ser-tbt'), args.Refid))
       )
-      console.log("************** RESPONSE ****************", res);
-      return JSON.stringify(res)
+      // console.log("************** RESPONSE ****************", res);
+      return res
+    }
+    catch(err){console.log('ERROR', err);}
+  },
+  deleteNiTbt: async(_, args) => {
+    console.log('NI TBT DETAILS', args);
+    try{
+      var client = new fauna.Client({secret: process.env.MY_SECRET})
+      var res = await client.query(
+        q.Delete(q.Ref(q.Collection('ni-tbt'), args.Refid))
+      )
+      // console.log('***********RESPONSE******', res);
+      return res
     }
     catch(err){console.log('ERROR', err);}
   },

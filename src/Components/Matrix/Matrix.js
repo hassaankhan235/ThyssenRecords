@@ -96,6 +96,15 @@ function Matrix(props) {
                 FinalTable.push(table[t])
                 temp.push(table[t].topic)
             }
+            else{
+                FinalTable.map((tbt, ind)=> {
+                    if(tbt.topic === table[t].topic && table[t].date > tbt.date){
+                        console.log('BEFORE REPLACE',tbt.date,table[t].date, table[t].date > tbt.date, FinalTable);
+                        FinalTable.splice(ind,1,table[t])
+                        console.log('COMPARISONS & RESULT',tbt.date,table[t].date, table[t].date > tbt.date, FinalTable);
+                    }
+                })
+            }
             // console.log("TEMPORARY",temporary);
         }
         /************************************************************************** END OF FILTER CODE */

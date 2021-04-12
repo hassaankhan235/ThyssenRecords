@@ -3,24 +3,24 @@ import {useMutation} from '@apollo/client'
 import gql from 'graphql-tag'
 
 const WRITE_NI_TBT = gql`
-mutation WRITEniTBT($topic:String, $site: String, $date: String, $id: [String]){
-    writeNItbt(topic: $topic, site: $site, date: $date, id: $id)
+mutation WRITEniTBT($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+    writeNItbt(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
 
 const WRITE_SER_TBT = gql`
-mutation WRITEniTBT($topic:String, $site: String, $date: String, $id: [String]){
-    writeSERtbt(topic: $topic, site: $site, date: $date, id: $id)
+mutation WRITEniTBT($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+    writeSERtbt(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
 const WRITE_NI_SA = gql`
-mutation WRITEniSA($topic:String, $site: String, $date: String, $id: [String]){
-    writeNISA(topic: $topic, site: $site, date: $date, id: $id)
+mutation WRITEniSA($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+    writeNISA(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 ` 
 const WRITE_SER_SA = gql`
-mutation WRITEserSA($topic:String, $site: String, $date: String, $id: [String]){
-    writeSERSA(topic: $topic, site: $site, date: $date, id: $id)
+mutation WRITEserSA($topic:String, $site: String, $date: String, $category: String , $id: [String]){
+    writeSERSA(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
 
@@ -45,24 +45,28 @@ function SubmitTbt(props) {
             tbtdetails[0].dept === 'NI' ?
         await writeNItbt({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
-            date:tbtdetails[0].date, id: filteredId
+            date:tbtdetails[0].date, category: tbtdetails[0].category, 
+            id: filteredId
         }})
         :
         await writeSERtbt({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
-            date:tbtdetails[0].date, id: filteredId
+            date:tbtdetails[0].date, category: tbtdetails[0].category, 
+            id: filteredId
         }})
         }
         else{
             tbtdetails[0].dept === 'NI' ?
         await writeNISA({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
-            date:tbtdetails[0].date, id: filteredId
+            date:tbtdetails[0].date, category: tbtdetails[0].category, 
+            id: filteredId
         }})
         :
         await writeSERSA({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
-            date:tbtdetails[0].date, id: filteredId
+            date:tbtdetails[0].date, category: tbtdetails[0].category,
+            id: filteredId
         }})
         }
         reset(e)

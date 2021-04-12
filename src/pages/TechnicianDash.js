@@ -3,10 +3,8 @@ import React, {useContext} from 'react'
 import Layout from './layout/layout'
 import IdentityContext from '../../IdentityContext'
 import WelcomeCard from '../WelcomeCard'
-import AppLogedin from './app/components/appLoggedIn'
 import TechnicianMatrix from '../Components/TechnicianDash/TechnicianMatrix'
 import MenuContext from '../../MenuContext'
-import MenuCar from './app/components/MenuCar'
 import LoginCard from './app/components/LoginCard'
 
 function TechnicianDash() {
@@ -25,7 +23,7 @@ function TechnicianDash() {
   : 
   <LoginCard />
 }
-  {Menustatus ? <MenuCar /> : null} 
+  {/* {Menustatus ? <MenuCar /> : null}  */}
         </div>
     )
 }

@@ -2,10 +2,14 @@ import React from 'react'
 import {gql, useQuery} from '@apollo/client'
 
 import Loader from '../../loader'
+import DeleteTbt from '../../../Components/Submit/DeleteTbt'
 
 const READ_QUERY = gql`
 query AllNITBTByTechnicianId($id: String){
     AllNiTbtByTechnicianId(id: $id){
+      ref{
+        id
+      }
       ts
       data{
         date
@@ -30,6 +34,7 @@ function NITechAllTBT(props) {
                 <th scope="col">Date</th>
                 <th scope="col">Site</th>
                 <th scope="col">Topic</th>
+                <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody style={{color:'white'}}>
@@ -39,6 +44,7 @@ function NITechAllTBT(props) {
             <td> {loading? <Loader /> : tbt.data.date} </td>
             <td> {loading? <Loader /> : tbt.data.site} </td>
             <td> {loading? <Loader /> : tbt.data.topic} </td>
+            <td> <DeleteTbt Refid={tbt.ref.id} dept={'NI'} /> </td>
             </tr>
           )
       })}

@@ -4,6 +4,7 @@ const { query, Client } = require('faunadb');
 const { merge } = require("lodash");
 const {getSAresolver, SAtypeDefs } = require('./getSafetyAlert') 
 const {TechBasedDataResolver}     = require('./getTechBasedData')
+const {TbtAnalysisResolver} = require('./getAnalysisData')
 
 // const { default: context } = require("react-bootstrap/esm/AccordionContext");
 
@@ -27,6 +28,7 @@ type tbt {
   site: String,
   date: String,
   id: [String]
+  type: String
 }
 
 type List{
@@ -73,19 +75,25 @@ type Query {
     getTechnicians_SER_W_REF: [Technician]
     AllNiTbtByTechnicianId(id: String): [tbtObject]
     AllSerTBTByTechnicianID(id: String): [tbtObject]
+    AllSerSAByTechnicianID(id: String): [tbtObject]
+    getNiTbtCountByHazard(topic: String): Int
+    getSerTbtCountByHazard(topic: String): Int
+    getNIAttCountByHazard(topic: String): [Int]
+    getSerAttCountByHazard(topic: String): [Int]
 }
 
 
 type Mutation {
-  writeNItbt(topic:String, site: String, date: String, id: [String]): String
-  writeSERtbt(topic:String, site: String, date: String, id: [String]): String
+  writeNItbt(topic:String, site: String, date: String, category: String ,id: [String]): String
+  writeSERtbt(topic:String, site: String, date: String, category: String ,id: [String]): String
   WriteNItech(name:String, id:String, company:String): String
   WriteSERtech(name:String, id:String, company:String): String
-  writeNISA(topic:String, site: String, date: String, id: [String]): String
-  writeSERSA(topic:String, site: String, date: String, id: [String]): String 
+  writeNISA(topic:String, site: String, date: String, category: String ,id: [String]): String
+  writeSERSA(topic:String, site: String, date: String, category: String ,id: [String]): String 
   writeTbtTopic(topic:String, type:String) : String
   writeSaTopic(topic:String, type:String, date:String, location:String) : String
-  deleteSerTbt(Refid: String): String
+  deleteSerTbt(Refid: String): tbtObject
+  deleteNiTbt(Refid: String): tbtObject
 }
 `;
 
@@ -353,6 +361,7 @@ const resolvers = {
               topic: tbtDetails.topic,
               site: tbtDetails.site,
               date: tbtDetails.date,
+              category: tbtDetails.category,
               id: tbtDetails.id
             }}
             ))
@@ -369,6 +378,7 @@ const resolvers = {
               topic: techDetails.topic,
               site: techDetails.site,
               date: techDetails.date,
+              category: techDetails.category,
               id: techDetails.id
             }}
             ))
@@ -424,7 +434,7 @@ const resolvers = {
 
 makeExecutableSchema({
   typeDefs: [typeDefs, SAtypeDefs],
-  resolvers: merge(resolvers, getSAresolver,TechBasedDataResolver)
+  resolvers: merge(resolvers, getSAresolver,TechBasedDataResolver, TbtAnalysisResolver)
 })
 
 const server = new ApolloServer({

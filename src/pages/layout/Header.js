@@ -14,10 +14,28 @@ function Header(props) {
   return (
   <nav className="navbar navbar-expand-lg navbar-dark " style={{backgroundColor:'#ff851b', border: '1px solid white'}} >
   <div className="container-fluid" >
-    <input type='button' value='Menu' className={Styles.MenuButton} onClick={(e) => showMenu(e)} />
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
+  <div class="dropdown">
+<button class="btn dropdown-toggle" type="button" style={{backgroundColor:'#ff851b',color:'white'}} data-toggle="dropdown" >
+  Menu
+</button>
+<div class="dropdown-menu" style={{backgroundColor:'#ff851b'}}>
+<h4 style={{color:'white'}}> Hassaan Khan </h4>  
+<h6 class="dropdown-header"> Add New Records</h6>
+  <a class="dropdown-item" href="../../AddTechnicians"> Add Technicians </a>
+  <a class="dropdown-item" href="../../AddTopic"> Add Topic Safety Alert / TBT </a>
+  <a class="dropdown-item" href="../../AddTbt"> Add Toolbox Talk </a>
+
+
+
+<div class="dropdown-divider"></div>
+<h6 class="dropdown-header"> Show Records</h6>
+<a class="dropdown-item" href="../../MatrixControl"> Toolbox Matrix </a>
+<a class="dropdown-item" href="../../TechnicianDash"> Technician Dashboard </a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="../../TbtAnalysis"> Category Wise Analysis </a>
+</div>
+</div>
+
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">

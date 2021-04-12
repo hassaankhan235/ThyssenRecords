@@ -7,7 +7,7 @@ import LoginCard from './app/components/LoginCard'
 import WelcomeCard from '../WelcomeCard'
 import AppLogedin from './app/components/appLoggedIn'
 import Styles from './app/components/Dash.module.css'
-import MenuCar from "./app/components/MenuCar"
+
 
 
 export default function Home(props) {
@@ -22,7 +22,7 @@ export default function Home(props) {
     {user.email ? 
     <> <WelcomeCard /> 
    <AppLogedin />
-   {Menustatus ? <MenuCar /> : null} 
+   {/* {Menustatus ? <MenuCar /> : null}  */}
   </>
   : 
     <LoginCard />

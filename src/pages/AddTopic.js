@@ -1,11 +1,9 @@
 import React, {useContext, useState} from 'react'
 
 import IdentityContext from '../../IdentityContext'
-import MenuContext from '../../MenuContext'
 import Layout from './layout/layout'
 import LoginCard from './app/components/LoginCard'
 import WelcomeCard from '../WelcomeCard'
-import MenuCar from './app/components/MenuCar'
 import Styles from './app/components/Dash.module.css'
 import SelectTbtType from '../Components/AddTopic/SelectTbtType'
 import Textbox from '../Components/AddTopic/Textbox'
@@ -14,7 +12,6 @@ import SubmitTopic from '../Components/AddTopic/SubmitTopic'
 function AddTopic() {
     
     const {user} = useContext(IdentityContext)
-    const {Menustatus} = useContext(MenuContext)
 
     const [flag, setFlag] = useState(true)
     const [tbtType, setTbtType] = useState("none")  
@@ -80,7 +77,7 @@ function AddTopic() {
 
       </div>}
 
-            {Menustatus ? <MenuCar /> : null}
+            {/* {Menustatus ? <MenuCar /> : null} */}
         </div>
     )
 }

@@ -10,8 +10,9 @@ import AutoSuggestInputBox from '../Components/autosuggest/autoSuggestInputBox'
 import { gql, useQuery } from '@apollo/client'
 import SubmitTbt from '../Components/Submit/SubmitTbt';
 import MenuContext from '../../MenuContext'
-import MenuCar from './app/components/MenuCar'
 import RadioBoxTemplate from '../template/RadioBoxTemplate'
+import Select from '../Components/autosuggest/Select'
+var handleSelect =  require('../Components/AddTbt/handleSelect').handleSelect
 
 function AddTbt() {
   const {Menustatus} = useContext(MenuContext)
@@ -39,7 +40,7 @@ function AddTbt() {
     const [deptSelectFlag, setDeptSelectFlag] = useState(false) /* Checks if dept is selected */
     const [flag, setFlag] = useState(true)                      /* uncheck the options radio at start and reset */
     const [typeSelectFlag, setTypeSelectFlag] = useState(false) /* Checks if type of TBT is selected */
-    const [tbtDetails, SettbtDetails] = useState([{date:'', topic:'', dept:'ni', sitename:'', type: ''}, {name: '', id: ''}])
+    const [tbtDetails, SettbtDetails] = useState([{date:'', topic:'', dept:'ni', sitename:'', type: '', category:''}, {name: '', id: ''}])
     const {loading, error, data} = useQuery(READ_QUERY)
     // data && console.log("data RECVD*******", data); 
     
@@ -48,8 +49,9 @@ function AddTbt() {
       setFlag(true)
       setDeptSelectFlag(false)
       setTypeSelectFlag(false)
-      SettbtDetails([{date:'', topic:'', dept:'', sitename:'', type: ''}, {name: '', id: ''}])
+      SettbtDetails([{date:'', topic:'', dept:'', sitename:'', type: '', category:''}, {name: '', id: ''}])
     }
+
 
     const handleCheck = (e) => {
       e.preventDefault()
@@ -161,12 +163,19 @@ function AddTbt() {
 
 /* If type of TBT options selected show TBT topic field & dept options */}
   {!typeSelectFlag ? null :
+  <>
   <AutoSuggestInputBox callback={handleTopicChange} name={'tbtTopic'} flag={flag} setFlag={setFlag} 
   labelName={'Toolbox Topic'} technicians={GenTbt? data.getTbtList : data.getSaList} reuseable={true}/>
+{/* This is Select box to show type of Hazards for TBT & type Incident for Safety Alert */}
+  <Select type={GenTbt? 'TBT' : 'SA' } handlechange={(e) => {
+    const val = e.target.value
+    return handleSelect(val, tbtDetails ,SettbtDetails)}} /> 
+  </>
   }
 
 {!typeSelectFlag ? null :
 <fieldset className="form-group">
+  {console.log('TBT DETAILS NOW', tbtDetails)}
     <div className="row">
       <legend className="col-form-label col-sm-2 pt-0">Department</legend>
       <div className="col-sm-10">
@@ -233,7 +242,7 @@ else
 } 
 </form>
         </div>
-        {Menustatus ? <MenuCar /> : null}
+        {/* {Menustatus ? <MenuCar /> : null} */}
         </div>
     )
 }

@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
+import { render } from 'react-dom'
 
 import AutoSuggestinput from '../../pages/app/components/autoSuggestinput'
 import Styles from './autocomp.module.css'
 
 const AutoSuggestInputBox = (props) => {
     let result = []
-    const [state, setState] = useState({name:'',id:'',suggest:[]})
     const {callback, index, technicians, setFlag, reuseable, labelName} = props
+    const [state, setState] = useState({name:'',id:'',suggest:[]})
     // console.log('TECHNICIANS & FLAG^^^^',flag, technicians);
     // reuseable === undefined ? true : reuseable
     var {flag} = props
@@ -28,8 +29,9 @@ const AutoSuggestInputBox = (props) => {
         if (value.length > 0){
             const regex = new RegExp(`^${value}`, 'i' )
             // console.log('REGEXP', regex,result.sort());
-            const guess = result.sort().filter(v => regex.test(v))
-            // console.log("GUESSES", guess);
+            var guess = result.sort().filter(v => regex.test(v))
+            if(guess.length === 0){guess = result}
+            console.log("GUESSES", guess,result);
             setState(prevState => {
                 return ({...prevState,suggest:guess})  })
         }
@@ -87,11 +89,11 @@ const AutoSuggestInputBox = (props) => {
         
 
         <AutoSuggestinput value={name} name={'name'} disabled={false} onchange={guesssuggest} lostFocus={lostFocus} 
-        state={state} setState={setState} labelName={'Name'} />
+        state={state} setState={setState} labelName={'Name'} suggestions={renderSuggestion} />
     
       {renderSuggestion()}
       
-      <AutoSuggestinput value={id} name={'id'} labelName={'ID / Iqama'}/>
+      <AutoSuggestinput value={id} name={'id'} labelName={'ID / Iqama'} disabled={true} />
       
       
         </div>

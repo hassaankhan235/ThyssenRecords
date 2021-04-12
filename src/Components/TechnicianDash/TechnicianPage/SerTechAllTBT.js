@@ -45,7 +45,7 @@ if(loading) return <Loader />
             <td> {loading? <Loader /> : tbt.data.date} </td>
             <td> {loading? <Loader /> : tbt.data.site} </td>
             <td> {loading? <Loader /> : tbt.data.topic}  </td>
-            <td> <DeleteTbt Refid={tbt.ref.id} /> </td> 
+            <td> <DeleteTbt Refid={tbt.ref.id} dept={'SER'}/> </td> 
             </tr>
           )
       })}

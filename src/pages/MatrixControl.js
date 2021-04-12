@@ -8,7 +8,6 @@ import Layout from './layout/layout'
 import IdentityContext from '../../IdentityContext'
 import MenuContext from '../../MenuContext'
 import DeptControl from '../Components/Matrix/DeptControl'
-import MenuCar from "./app/components/MenuCar"
 import MatrixTypeControl from '../template/MatrixTypeControl'
 import Pagination from '../Components/Pagination/Pagination'
 import Loader from '../Components/loader'
@@ -55,6 +54,7 @@ function MatrixControl() {
     `
     const {user} = useContext(IdentityContext)
     const {Menustatus} = useContext(MenuContext)
+    
     const {loading, error, data} = useQuery(READ_QUERY)
     var tbtList, tbtListTotal;
     
@@ -64,7 +64,7 @@ function MatrixControl() {
     if(loading) return <Loader />
     if(error) return "error"
     else{
-        tbtListTotal = MatrixType === "GenTbtMatrix" ? data.getTbtList : data.getSaList
+        tbtListTotal = MatrixType === "GenTbtMatrix" ? data.getTbtList  : data.getSaList
         tbtList = tbtListTotal.filter((tbt,i) => {
             return i>= MyPagination - 5 && i <= MyPagination
         })
@@ -126,7 +126,7 @@ MatrixTypeSelected &&
     }
 {/* ********************* END OF MATRIX ************************** */}
 
-        {Menustatus ? <MenuCar /> : null}
+        {/* {Menustatus ? <MenuCar /> : null} */}
         </div>
         // </div>
     )}
