@@ -32,12 +32,12 @@ console.log('NItotAttendeesMonth', data);
 
 
 return(
-    <div >
-    <div className= {`bg-secondary ${Styles.grid} ${Styles.mycontainer}`} style={{ width:'80%', margin:'0 auto'}}>
-        <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
-        <h5 className='text-light card' style={{width:'100%'}}> 
+    <div className={'flex flex-column'} style={{ width:'80%', margin:'0 auto'}}>
+    <div className= {` ${Styles.mycontainer} `} >
+        <div className={`${Styles.blockone}`} >
+        <h5 className={`${Styles.periodHeading} card`}> 
         {loading && `Still Loading baba`}
-        {data && <span className={`${Styles.periodHeading}`}> THIS MONTH </span>}
+        {data &&  'THIS MONTH' }
         {error && `ERROR HAI`}
         </h5>
         <div style={{display:'flex'}}>
@@ -49,9 +49,9 @@ return(
         </div>
         </div>
 
-        <div className={`${Styles.marginLeft}`} style={{display:'flex', flexDirection:'column'}}>
-        <h5 className='text-light card'>   
-        <span className={`${Styles.periodHeading}`}> THIS YEAR </span> 
+        <div className={`${Styles.blocktwo}`} style={{width:'100%'}}>
+        <h5 className={`${Styles.periodHeading} card`} >   
+        THIS YEAR  
         </h5> 
         <div style={{display:'flex'}}>
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'

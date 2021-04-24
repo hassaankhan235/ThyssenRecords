@@ -1,7 +1,17 @@
 .footer{
     display: block;
     margin: 0 auto;
-    background-color:red;
+    width: 90%;
     margin-top: 10px;
-    width: 80%;
+
+}
+
+
+@media only screen and (max-width: 900px) {
+    .footer{
+        display: block;
+    margin: 0 auto;
+        width: 80%;
+        margin-top: 10px;
+    }
 }
