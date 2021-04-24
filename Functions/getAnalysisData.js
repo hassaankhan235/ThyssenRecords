@@ -25,7 +25,7 @@ exports.TbtAnalysisResolver = {
                 return res
               }
               catch(err){
-                // console.log('ERROR', err)
+                console.log('ERROR', err)
               }
           },
           getSerTbtCountByHazard: async (_, args) => {

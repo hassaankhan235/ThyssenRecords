@@ -6,7 +6,6 @@ import WelcomeCard from '../WelcomeCard'
 import LoginCard from './app/components/LoginCard'
 import CategoryWisepanel from '../Components/TBTAnalysisBoard/CategoryWisepanel'
 import SearchCategoryForTech from '../Components/TBTAnalysisBoard/CatTech/SearchCategoryForTech'
-import { left } from '@popperjs/core'
 
 
 const TBTAnalysisBoard = () => {
@@ -14,7 +13,7 @@ const TBTAnalysisBoard = () => {
     const {user} = useContext(IdentityContext)
 
     return (
-        <>
+        <div className={`bg-secondary text-light`}>
         <Layout /> 
 {user.email ? 
 <>
@@ -31,7 +30,7 @@ const TBTAnalysisBoard = () => {
 : 
 <LoginCard />
 }
-</>
+</div>
     )
 }
 

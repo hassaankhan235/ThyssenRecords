@@ -6,16 +6,14 @@ import WelcomeCard from '../WelcomeCard'
 import LoginCard from './app/components/LoginCard'
 import IdentityContext from '../../IdentityContext'
 import Styles from './app/components/Dash.module.css'
-import AutoSuggestInputBox from '../Components/autosuggest/autoSuggestInputBox'
 import { gql, useQuery } from '@apollo/client'
 import SubmitTbt from '../Components/Submit/SubmitTbt';
-import MenuContext from '../../MenuContext'
 import RadioBoxTemplate from '../template/RadioBoxTemplate'
-import Select from '../Components/autosuggest/Select'
-var handleSelect =  require('../Components/AddTbt/handleSelect').handleSelect
+import SelectTechnicians from '../Components/AddTbt/SelectTechnicians'
+import SelectTopic from '../Components/AddTbt/SelectTopic'
+
 
 function AddTbt() {
-  const {Menustatus} = useContext(MenuContext)
   const [GenTbt, setGenTbt] = useState()                      /* Checks if  selected type of TBT is General or Safety Alert */
 
   const READ_QUERY =  /* If selected type of TBT is General TBT then get TBT list else get Safety Alert List*/ 
@@ -29,8 +27,20 @@ function AddTbt() {
       name
       id
     }
-    getTbtList
-    getSaList
+    getSaListwithhaz{
+      ts
+      data{
+        HazardType
+        topic
+      }
+    }
+    getTbtListwithhaz{
+      ts
+      data{
+        HazardType
+        topic
+      }
+    }
   }
   `
   
@@ -42,7 +52,7 @@ function AddTbt() {
     const [typeSelectFlag, setTypeSelectFlag] = useState(false) /* Checks if type of TBT is selected */
     const [tbtDetails, SettbtDetails] = useState([{date:'', topic:'', dept:'ni', sitename:'', type: '', category:''}, {name: '', id: ''}])
     const {loading, error, data} = useQuery(READ_QUERY)
-    // data && console.log("data RECVD*******", data); 
+    data && console.log("data RECVD*******", data); 
     
     const resetState = (e) => {
       console.log("SAFAYYAAAAANNNNNNNNN");
@@ -73,25 +83,6 @@ function AddTbt() {
       // console.log('dept', val, e.target.name, typeSelectFlag, tbtDetails);
     }
 
-    const handleTopicChange = (_,value) => {
-      console.log('NAME & VALUE',value);
-      SettbtDetails(prevStat=>{
-        const copy = [...tbtDetails]
-        copy[0].topic = value
-        return copy
-      })
-    }
-
-    const handleChange = (index,techName, techId) => {
-    /* Following code to access each individual name and id object of tbtDetails object */
-    var list = [...tbtDetails]
-    list[index]['name'] = techName  
-    list[index]['id'] = techId
-    // console.log("TECHiNDEX &&&" ,list);
-    // console.log('CHECKING', dept==='Ser', dept);
-    SettbtDetails(list)
-    console.log("List Now", list);
-    }
 
     const AddTechnicians = (e) => {
         e.preventDefault()
@@ -140,8 +131,8 @@ function AddTbt() {
         
         <div className="form-check">
           <input className="form-check-input" type="radio" name="type" id="gridRadios1" value="TBT"  
-          checked = {flag ? false : null} 
-          onChange={(e) => handleCheck(e)} />
+          onChange={(e) => handleCheck(e)}
+          checked = {flag ? false : null} />
           <label className="form-check-label" htmlFor="gridRadios1">
            General Toolbox Talk
           </label>
@@ -149,8 +140,8 @@ function AddTbt() {
         
         <div className="form-check">
           <input className="form-check-input" type="radio" name="type" id="gridRadios2" value="SA" 
-          checked = {flag ? false : null}
-          onChange={(e) => handleCheck(e)}/>
+          onChange={(e) => handleCheck(e)}
+          checked = {flag ? false : null}/>
           <label className="form-check-label" htmlFor="gridRadios2">
             Safety Alert / Accident Notification
           </label>
@@ -163,14 +154,7 @@ function AddTbt() {
 
 /* If type of TBT options selected show TBT topic field & dept options */}
   {!typeSelectFlag ? null :
-  <>
-  <AutoSuggestInputBox callback={handleTopicChange} name={'tbtTopic'} flag={flag} setFlag={setFlag} 
-  labelName={'Toolbox Topic'} technicians={GenTbt? data.getTbtList : data.getSaList} reuseable={true}/>
-{/* This is Select box to show type of Hazards for TBT & type Incident for Safety Alert */}
-  <Select type={GenTbt? 'TBT' : 'SA' } handlechange={(e) => {
-    const val = e.target.value
-    return handleSelect(val, tbtDetails ,SettbtDetails)}} /> 
-  </>
+  <SelectTopic topics={GenTbt? data.getTbtListwithhaz : data.getSaListwithhaz} tbtDetails={tbtDetails} SettbtDetails={SettbtDetails} />
   }
 
 {!typeSelectFlag ? null :
@@ -195,12 +179,9 @@ function AddTbt() {
 :
 tbtDetails.map((val, ind) => {
 if(ind === 0) return null  
-else
 {return(
-<div key={ data.getTechnicians_NI[ind].name}>  
-      <AutoSuggestInputBox index= {ind} callback={handleChange} name='name' flag = {flag} setFlag = {setFlag}
-      technicians={dept==='Ser'? data.getTechnicians_SER : data.getTechnicians_NI } reuseable={false} />
-</div>
+ <SelectTechnicians  technicians={dept==='Ser'? data.getTechnicians_SER : data.getTechnicians_NI} tbtDetails={tbtDetails} 
+ SettbtDetails={SettbtDetails} ind={ind} />
 )}
 
 

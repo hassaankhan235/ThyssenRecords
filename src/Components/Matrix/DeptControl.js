@@ -12,7 +12,7 @@ function DeptControl(props) {
           <div className="col-sm-10">
         <div className="form-check ">
   <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" 
-  value="NI" onChange={(e) => selectdept(e)}  />
+  value="NI" onChange={(e) => selectdept(e)} />
   <label className="form-check-label" htmlFor="inlineRadio1">New Installation</label>
 </div>
 

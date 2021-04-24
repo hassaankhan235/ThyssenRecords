@@ -5,7 +5,7 @@ import Loader from '../../../Components/loader'
 
 const TbtCountNI = (props) => {
 
-    const {topic} = props
+    let {topic} = props
     const READ_HAZ_TBTCOUNT_NI =   
     gql`
     query getNITBTCountByHazard($topic: String){

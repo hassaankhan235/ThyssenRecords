@@ -23,14 +23,14 @@ const {TBT} = useContext(HazardTypeContext)
   {TBT.map(haz => {
        return(
        <tr>
-       <td> {haz} </td>
+       <td> {haz.label} </td>
        <td scope='row'> 
-       <div>  NI = <TbtCountNI topic={haz} /> </div>
-       <div>  Ser = <TbtCountSer topic={haz} /> </div>
+       <div>  NI = <TbtCountNI topic={haz.value} /> </div>
+       <div>  Ser = <TbtCountSer topic={haz.value} /> </div>
        </td>
        <td scope='row'> 
-       <div>  NI = <AttendanceCountNI topic={haz} /> </div> 
-       <div>  Ser = <AttendanceCountSer topic={haz} /> </div> 
+       <div>  NI = <AttendanceCountNI topic={haz.value} /> </div> 
+       <div>  Ser = <AttendanceCountSer topic={haz.value} /> </div> 
        </td>
        </tr>
        )

@@ -15,6 +15,7 @@ import Loader from '../Components/loader'
 function MatrixControl() {
     
     const [MatrixType, setMatrixType] = useState('')
+    const [deptSelected, setdeptSelected] = useState(false)
     const [dept, SetDept] = useState('')
     const [MatrixTypeSelected, setMatrixTypeSelected] = useState(false)
     const [MyPagination, setPagination] = useState(5)
@@ -26,6 +27,7 @@ function MatrixControl() {
         const val = e.target.value
         // console.log('Dept', val);
         SetDept(val)
+        setdeptSelected(true)
     }
 
     // THis function handles Type of TBT (Safety Alert v/s Gen TBT) to Show Options
@@ -86,7 +88,7 @@ function MatrixControl() {
 
    {/* **************************************** START OF MATRIX *********************************************** */}      
 {
-MatrixTypeSelected &&
+deptSelected &&
 
 
 <div className='container-fluid'>

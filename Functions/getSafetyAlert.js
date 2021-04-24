@@ -106,6 +106,8 @@ Mutation: {
           id: SADetails.id
         }}
         ))
+        console.log('Recieved',);
+        return res
     }
     catch(err){console.log('ERROR', err);}
   },
@@ -135,12 +137,14 @@ Mutation: {
       var res = await client.query(
         q.Create(q.Collection('sa-list'),{data:
         {
-          topic:    topicDetails.topic,
-          type:      topicDetails.type,
-          date:      topicDetails.date,
-          location:  topicDetails.location
+          topic:           topicDetails.topic,
+          HazardType:      topicDetails.HazardType,
+          date:            topicDetails.date,
+          location:        topicDetails.location
         }}
         ))
+        console.log('SATOPIC ADDED RECVD',res.data.topic);
+        return res.data.topic
     }
     catch(err){console.log('ERROR', err);}
   },

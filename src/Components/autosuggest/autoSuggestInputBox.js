@@ -31,7 +31,7 @@ const AutoSuggestInputBox = (props) => {
             // console.log('REGEXP', regex,result.sort());
             var guess = result.sort().filter(v => regex.test(v))
             if(guess.length === 0){guess = result}
-            console.log("GUESSES", guess,result);
+            // console.log("GUESSES", guess,result);
             setState(prevState => {
                 return ({...prevState,suggest:guess})  })
         }
@@ -59,7 +59,7 @@ const AutoSuggestInputBox = (props) => {
 
     const suggestionSelected = (value) => {
         let Selectedindex = result.findIndex((val,i) => val === value )
-        console.log('Name & Val HERE', value);
+        // console.log('Name & Val HERE', value);
         setState({...state, name: value, id:technicians[Selectedindex].id})
         callback(index,value,technicians[Selectedindex].id)
 

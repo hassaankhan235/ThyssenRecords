@@ -48,6 +48,17 @@ type Technician {
   data: data
 }
 
+type TbtData {
+  topic: String,
+  HazardType: [String]  
+}
+
+type ToolboxObject {
+  ref: List,
+  ts: String,
+  data : TbtData 
+}
+
 type Query {
     NItotTBTMonth: Int
     NItotAttendeesMonth: Int
@@ -60,9 +71,11 @@ type Query {
     getTechnicians_NI: [data]
     getTechnicians_SER: [data]
     getTbtList:  [String]
+    getTbtListwithhaz: [ToolboxObject]
     getNiTbt6Months : [tbt]
     getSerTbt6Months : [tbt]
     getSaList:  [String]
+    getSaListwithhaz: [ToolboxObject]
     getNiSA6Months: [tbt]
     getSerSA6Months : [tbt]
     SumOfNiTechnician: Int
@@ -90,8 +103,8 @@ type Mutation {
   WriteSERtech(name:String, id:String, company:String): String
   writeNISA(topic:String, site: String, date: String, category: String ,id: [String]): String
   writeSERSA(topic:String, site: String, date: String, category: String ,id: [String]): String 
-  writeTbtTopic(topic:String, type:String) : String
-  writeSaTopic(topic:String, type:String, date:String, location:String) : String
+  writeTbtTopic(topic:String, HazardType:[String]) : String
+  writeSaTopic(topic:String,  HazardType:[String], date:String, location:String) : String
   deleteSerTbt(Refid: String): tbtObject
   deleteNiTbt(Refid: String): tbtObject
 }
@@ -281,6 +294,38 @@ const resolvers = {
             console.log('ERROR', err)
           }
       },
+      getTbtListwithhaz: async() => {
+        try{
+          var client = new Client({secret: process.env.MY_SECRET})
+          res = await client.query(
+            q.Map(
+              q.Paginate(q.Match(q.Index( 'getTbtListwithhaz' ) ) ),
+              q.Lambda('ref', q.Get(q.Var('ref')))
+                )
+            )
+            // console.log("Toolbox Talks", res)
+            return res.data
+          }
+          catch(err){
+            console.log('ERROR', err)
+          }
+      },
+      getSaListwithhaz: async() => {
+        try{
+          var client = new Client({secret: process.env.MY_SECRET})
+          res = await client.query(
+            q.Map(
+              q.Paginate(q.Match(q.Index( 'getSaListwithhaz' ) ) ),
+              q.Lambda('ref', q.Get(q.Var('ref')))
+                )
+            )
+            console.log("Safety Alerts", res.data)
+            return res.data
+          }
+          catch(err){
+            console.log('ERROR', err)
+          }
+      },
       getNiTbt6Months: async (parent, args, context) => {
         try{
           let sixthmnth = month <= 6 ? 1 : 7  
@@ -423,7 +468,7 @@ const resolvers = {
             q.Create(q.Collection('tbt-list'),{data:
             {
               topic: topicDetails.topic,
-              type: topicDetails.type
+              HazardType: topicDetails.HazardType
             }}
             ))
         }
