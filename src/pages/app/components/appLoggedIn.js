@@ -50,7 +50,7 @@ return(
         </div>
 
         <div className={`${Styles.blocktwo}`} style={{width:'100%'}}>
-        <h5 className={`${Styles.periodHeading} card`} >   
+        <h5 className={`${Styles.periodHeading} `} >   
         THIS YEAR  
         </h5> 
         <div style={{display:'flex'}}>

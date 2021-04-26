@@ -10,7 +10,7 @@ function DashboardInfoCards(props) {
     const {title,  firstinfo, secinfo, firsttotal, secondtotal, thirdtotal, fourthtotal} = props
     return (
         <div>
-            <div className="card mr-2" style={{ width: "18rem"}} >
+            <div className={` card mr-2 mr-0 ${Styles.individualBlock}`} style={{width: "18rem"}} >
   <div className="card-body">
     <h5 className={`card-title ${Styles.heading}`}  > {title} </h5>
     <h6 className={`card-subtitle mt-1 ${Styles.Dashsubheading}`}> New Installation </h6>
