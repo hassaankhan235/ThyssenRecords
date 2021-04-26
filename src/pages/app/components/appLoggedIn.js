@@ -32,7 +32,7 @@ console.log('NItotAttendeesMonth', data);
 
 
 return(
-    <div className={'flex flex-column'} style={{ width:'80%', margin:'0 auto'}}>
+    <div className={'flex flex-column'} style={{ width:'100%', margin:'0 auto'}}>
     <div className= {` ${Styles.mycontainer} `} >
         <div className={`${Styles.blockone}`} >
         <h5 className={`${Styles.periodHeading} card`}> 
