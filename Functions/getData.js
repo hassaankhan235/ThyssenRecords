@@ -61,11 +61,15 @@ type ToolboxObject {
 
 type Query {
     NItotTBTMonth: Int
+    NItotSAMonth: Int
     NItotAttendeesMonth: Int
+    NItotAttendeesMonth_SA: Int
     NItotTBTYear: Int
     NItotAttendeesYear: Int
+    SERtotSAMonth: Int
     SERtotTBTMonth: Int
     SERtotAttendeesMonth: Int
+    SERtotAttendeesMonth_SA: Int
     SERtotTBTYear: Int
     SERtotAttendeesYear: Int
     getTechnicians_NI: [data]
@@ -79,6 +83,7 @@ type Query {
     getNiSA6Months: [tbt]
     getSerSA6Months : [tbt]
     SumOfNiTechnician: Int
+    SumOfSerTechnician: Int
     NiTbtByTechnicianId(id: String): [tbtObject]
     CountTbtByIdNI(id: String, subtractMonth: Int): Int
     CountSAByIdNI(id: String): Int
@@ -97,12 +102,12 @@ type Query {
 
 
 type Mutation {
-  writeNItbt(topic:String, site: String, date: String, category: String ,id: [String]): String
-  writeSERtbt(topic:String, site: String, date: String, category: String ,id: [String]): String
+  writeNItbt(topic:String, site: String, date: String, category: [String] ,id: [String]): String
+  writeSERtbt(topic:String, site: String, date: String, category: [String] ,id: [String]): String
   WriteNItech(name:String, id:String, company:String): String
   WriteSERtech(name:String, id:String, company:String): String
-  writeNISA(topic:String, site: String, date: String, category: String ,id: [String]): String
-  writeSERSA(topic:String, site: String, date: String, category: String ,id: [String]): String 
+  writeNISA(topic:String, site: String, date: String, category: [String] ,id: [String]): [String]
+  writeSERSA(topic:String, site: String, date: String, category: [String] ,id: [String]): [String] 
   writeTbtTopic(topic:String, HazardType:[String]) : String
   writeSaTopic(topic:String,  HazardType:[String], date:String, location:String) : String
   deleteSerTbt(Refid: String): tbtObject
@@ -377,6 +382,19 @@ const resolvers = {
           console.log("ERROR",err);
         }
       },
+      SumOfSerTechnician: async () => {
+        try{  
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = await client.query(
+            q.Count((q.Match(q.Index("SERtech"))))
+          )
+          // console.log("********** TOTAL NI TECHNICIAN ********",res);
+          return res
+        } 
+        catch(err){
+          console.log("ERROR",err);
+        }
+      },
       NiTbtByTechnicianId: async (parent,args,context) => {
         try{  
           console.log("*****INPUTS******",parent,args,context);
@@ -410,6 +428,11 @@ const resolvers = {
               id: tbtDetails.id
             }}
             ))
+            console.log('Recieved',res);
+            res = res.data.category
+        res = res.toString()
+        console.log('Recieved',res);
+        return res
         }
         catch(err){console.log('ERROR', err);}
       },

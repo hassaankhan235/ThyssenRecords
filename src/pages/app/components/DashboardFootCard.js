@@ -8,7 +8,7 @@ import Loader from '../../../Components/loader'
 
 function DashboardFootCard(props) {
 
-  const {SumNiTech} = props
+  const {SumNiTech, SumSerTech} = props
   
     return (
         <div className={`${Styles.footer} `}>
@@ -24,13 +24,13 @@ function DashboardFootCard(props) {
   <li className=  {`list-group-item  ${Style.textyellow} ${Style.flex} 
   ${Style.borderYellow} ${Style.small} mr-5`} style={{width: "20%"}} > 
   Service technicians  
-  <p className={Style.info}> 6 </p>   
+  <p className={Style.info}> {SumSerTech} </p>   
   </li>
 
   <li className=  {`list-group-item  ${Style.textyellow} ${Style.flex} 
   ${Style.borderYellow} ${Style.small} mr-5`} style={{width: "20%"}} > 
   Subcon technicians  
-  <p className={Style.info}> 6 </p>   
+  <p className={Style.info}> - </p>   
   </li>
 
   <li className=  {`list-group-item ${Style.textyellow} ${Style.flex} 

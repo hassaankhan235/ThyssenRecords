@@ -20,6 +20,11 @@ const AppLogedin = () => {
         SERtotAttendeesYear
         SERtotTBTYear
         SumOfNiTechnician
+        SumOfSerTechnician
+        SERtotSAMonth
+        SERtotAttendeesMonth_SA
+        NItotSAMonth
+        NItotAttendeesMonth_SA
     }
     `;
 
@@ -44,8 +49,9 @@ return(
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' firsttotal={data && data.NItotTBTMonth} 
         secondtotal={data && data.NItotAttendeesMonth} secinfo='Total Attendees' thirdtotal={data && data.SERtotTBTMonth}
         fourthtotal= {data && data.SERtotAttendeesMonth} />
-        <DashboardInfoCards title='Safety Alert' firstinfo='Tot Traing'  secinfo='Total Attendees' firsttotal={0}
-        secondtotal={0} thirdtotal={0} fourthtotal={0}/>
+        <DashboardInfoCards title='Safety Alert' firstinfo='Tot Traing'  secinfo='Total Attendees' firsttotal={data && data.NItotSAMonth}
+        secondtotal={data && data.NItotAttendeesMonth_SA} thirdtotal={data && data.SERtotSAMonth} 
+        fourthtotal={data && data.SERtotAttendeesMonth_SA}/>
         </div>
         </div>
 
@@ -62,7 +68,7 @@ return(
         </div>
         </div>
     </div>
-        <DashboardFootCard SumNiTech={data && data.SumOfNiTechnician} />
+        <DashboardFootCard SumNiTech={data && data.SumOfNiTechnician} SumSerTech={data && data.SumOfSerTechnician} />
 
     </div>
 )

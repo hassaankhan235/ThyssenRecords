@@ -54,9 +54,10 @@ function Matrix(props) {
 
 
         /* *****************Following line to find out The TBT attended by a particular technician  *************   */
-        var Techrows = dept === "NI" ? NiTbt6Months?.filter(tbt => tbt.id.find(id=> id === TechId) ) 
-        :  
-        SerTbt6Months.filter(tbt => tbt.id.find(id=> id === TechId) );
+        console.log('DEPT',dept);
+        var Techrows 
+        if(dept === "NI") {Techrows = NiTbt6Months?.filter(tbt => tbt.id.find(id=> id === TechId) )} 
+        else {Techrows = SerTbt6Months?.filter(tbt => tbt.id.find(id=> id === TechId) );}
         // console.log("Techrows",Techrows, data);
 
         var TechrowsCopy = []

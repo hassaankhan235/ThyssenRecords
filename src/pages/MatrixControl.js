@@ -97,8 +97,8 @@ deptSelected &&
     
   {/*  ----------- Based on the list of TBT Topic These lines are writing table header ------------ */}
     <thead>
-     <tr>
-     <th scope="col" style={{backgroundColor:'blueviolet',color:'white'}}> Name </th>
+     <tr >
+     <th scope="col" style={{backgroundColor:'blueviolet',color:'white', position:'sticky', top:'0px',position: '-webkit-sticky'}}> Name </th>
        {tbtList.map((topic) => {
            return (<th key={topic} scope="col" style={{backgroundColor:'blueviolet',color:'white'}}> {topic} </th>)
        })}

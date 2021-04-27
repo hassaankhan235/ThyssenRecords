@@ -59,7 +59,7 @@ exports.getSAresolver = {
             let res = await client.query(
               q.Map(
                 q.Paginate(
-                  q.Range(q.Match(q.Index("NIsa_ByDate")),q.Date(`${year -1}-${month}-01`), q.Date(`${year}-${month}-${date}`) )
+                  q.Range(q.Match(q.Index("NIsa-ByDate")),q.Date(`${year -1}-${month}-01`), q.Date(`${year}-${month}-${date}`) )
                 ),
                 q.Lambda(["x", "y"], q.Select(["data"], q.Get(q.Var("y"))))
               )
@@ -78,7 +78,7 @@ exports.getSAresolver = {
             let res = await client.query(
               q.Map(
                 q.Paginate(
-                  q.Range(q.Match(q.Index("SERsa_ByDate")),q.Date(`${year -1}-${month}-01`), q.Date(`${year}-${month}-${date}`) )
+                  q.Range(q.Match(q.Index("SERsa-ByDate")),q.Date(`${year -1}-${month}-01`), q.Date(`${year}-${month}-${date}`) )
                 ),
                 q.Lambda(["x", "y"], q.Select(["data"], q.Get(q.Var("y"))))
               )
@@ -86,6 +86,73 @@ exports.getSAresolver = {
             console.log("*********************NI Safety Alerts 1 Year********",res);
             return res.data
           } 
+          catch(err){
+            console.log("ERROR",err);
+          }
+        },
+        SERtotSAMonth: async() => {
+          try{
+            console.log('MONTH DATE YEAR',year,month,date);
+            var client = new fauna.Client({secret: process.env.MY_SECRET})
+            let res = await client.query(
+              q.Count(q.Range(q.Match(q.Index('SERsa-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
+            )
+            // console.log('Sub Attendance result',res);
+            return res 
+          }
+          catch(err){
+            console.log(err);
+          }
+        },
+        SERtotAttendeesMonth_SA: async(parent, args, context) => {
+          try{
+            var client = new fauna.Client({secret: process.env.MY_SECRET})
+            let res = [];
+            res = await client.query(
+              q.Map(
+                q.Paginate(q.Range(q.Match(q.Index('SERsa-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) ), 
+                q.Lambda(['x','y'],  q.Count(q.Select(  ['data', 'id']      ,q.Get(  q.Var('y') )   ))  )
+                  )
+            )
+            result = res.data.reduce((acc, val) => {
+              return acc + val 
+            }, 0);
+  
+            return result 
+          }
+          catch(err){
+            console.log("ERROR",err);
+          }
+        },
+        NItotSAMonth: async () => {
+          try{
+            var client = new fauna.Client({secret: 'fnAEFY3AhIACBS71dX5TNClK3L0OVDFJYdiesU5J'})
+            let res = await client.query(
+              q.Count(q.Range(q.Match(q.Index('NIsa-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) )
+            )
+            // console.log("NItotTBTMonth********",res);
+            return res
+          } 
+          catch(err){
+            console.log("ERROR",err);
+          }
+        },
+        NItotAttendeesMonth_SA: async(parent, args, context) => {
+          try{
+            var client = new fauna.Client({secret: process.env.MY_SECRET})
+            let res = [];
+            res = await client.query(
+              q.Map(
+                q.Paginate(q.Range(q.Match(q.Index('NIsa-ByDate')), q.Date(`${year}-${month}-01`),  q.Date(`${year}-${month}-${date}`)  ) ), 
+                q.Lambda(['x','y'],  q.Count(q.Select(  ['data', 'id']      ,q.Get(  q.Var('y') )   ))  )
+                  )
+            )
+            result = res.data.reduce((acc, val) => {
+              return acc + val 
+            }, 0);
+  
+            return result 
+          }
           catch(err){
             console.log("ERROR",err);
           }
@@ -106,8 +173,7 @@ Mutation: {
           id: SADetails.id
         }}
         ))
-        console.log('Recieved',);
-        return res
+        return (res.data.category)
     }
     catch(err){console.log('ERROR', err);}
   },
@@ -126,7 +192,7 @@ Mutation: {
         }}
         ))
         console.log(JSON.stringify(res));
-        return JSON.stringify(res.ref)
+        return (res.data.category)
     }
     catch(err){console.log('ERROR', err);}
   },

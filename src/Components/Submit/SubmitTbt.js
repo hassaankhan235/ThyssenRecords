@@ -3,23 +3,23 @@ import {useMutation} from '@apollo/client'
 import gql from 'graphql-tag'
 
 const WRITE_NI_TBT = gql`
-mutation WRITEniTBT($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+mutation WRITEniTBT($topic:String, $site: String, $date: String, $category: [String] ,$id: [String]){
     writeNItbt(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
 
 const WRITE_SER_TBT = gql`
-mutation WRITEniTBT($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+mutation WRITEserTBT($topic:String, $site: String, $date: String, $category: [String] ,$id: [String]){
     writeSERtbt(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
 const WRITE_NI_SA = gql`
-mutation WRITEniSA($topic:String, $site: String, $date: String, $category: String ,$id: [String]){
+mutation WRITEniSA($topic:String, $site: String, $date: String, $category: [String] ,$id: [String]){
     writeNISA(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 ` 
 const WRITE_SER_SA = gql`
-mutation WRITEserSA($topic:String, $site: String, $date: String, $category: String , $id: [String]){
+mutation WRITEserSA($topic:String, $site: String, $date: String, $category: [String] , $id: [String]){
     writeSERSA(topic: $topic, site: $site, date: $date, category: $category ,id: $id)
 }
 `
@@ -28,10 +28,10 @@ mutation WRITEserSA($topic:String, $site: String, $date: String, $category: Stri
 function SubmitTbt(props) {
     
     const {tbtdetails, reset} = props
-    console.log("TBT TO SUBMIT" ,tbtdetails[0].dept);
+    // console.log("TBT TO SUBMIT" ,tbtdetails);
     const id = tbtdetails.map(tbtDetail => tbtDetail.id)
     const filteredId = id.filter(ufid => ufid !== undefined)
-    console.log('ID is', filteredId);
+    // console.log('ID is', filteredId);
 
     const [writeNItbt] = useMutation(WRITE_NI_TBT)
     const [writeSERtbt] = useMutation(WRITE_SER_TBT)
@@ -40,16 +40,17 @@ function SubmitTbt(props) {
 
     const handleSubmit =  async(e) => {
         e.preventDefault()
+        let result, rcvd 
         if(tbtdetails[0].type === 'TBT')
         {
             tbtdetails[0].dept === 'NI' ?
-        await writeNItbt({variables: {
+        result = await writeNItbt({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, category: tbtdetails[0].category, 
             id: filteredId
         }})
         :
-        await writeSERtbt({variables: {
+        result = await writeSERtbt({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, category: tbtdetails[0].category, 
             id: filteredId
@@ -57,18 +58,27 @@ function SubmitTbt(props) {
         }
         else{
             tbtdetails[0].dept === 'NI' ?
-        await writeNISA({variables: {
+        result = await writeNISA({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, category: tbtdetails[0].category, 
             id: filteredId
         }})
         :
-        await writeSERSA({variables: {
+        result = await writeSERSA({variables: {
             topic:tbtdetails[0].topic,site:tbtdetails[0].sitename,
             date:tbtdetails[0].date, category: tbtdetails[0].category,
             id: filteredId
         }})
         }
+        let msg = 'Added New'
+        rcvd = msg.concat(tbtdetails[0].type==="TBT" && tbtdetails.dept === 'NI' ? JSON.stringify(result.data.writeNItbt) 
+                                : JSON.stringify(result.data.writeSERtbt))
+                                
+            rcvd = msg.concat(tbtdetails[0].type=== "SA" && tbtdetails.dept === 'NI' ? JSON.stringify(result.data.writeNISA)
+                                : JSON.stringify(result.data.writeSERSA) )
+        let Message = rcvd.concat(' toolbox talk. Thanks Hassaan Cheetay ✔ 👍')
+        alert(Message)
+        console.log("Recieved back---------",rcvd, result,tbtdetails[0].type=== "SA",tbtdetails[0].dept === 'NI');
         reset(e)
       }
 
