@@ -66,6 +66,7 @@ type Query {
     NItotAttendeesMonth_SA: Int
     NItotTBTYear: Int
     NItotAttendeesYear: Int
+    NItotAttendeesYear_SA: Int
     SERtotSAMonth: Int
     SERtotTBTMonth: Int
     SERtotAttendeesMonth: Int
@@ -245,6 +246,26 @@ const resolvers = {
             return acc + val 
           }, 0);
 
+          return result 
+        }
+        catch(err){
+          console.log("ERROR",err);
+        }
+      },
+      NItotAttendeesYear_SA: async(parent, args, context) => {
+        try{
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = [];
+          res = await client.query(
+            q.Map(
+              q.Paginate(q.Range(q.Match(q.Index('NIsa-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) ), 
+              q.Lambda(['x','y'],  q.Count(q.Select(  ['data', 'id']      ,q.Get(  q.Var('y') )   ))  )
+                )
+          )
+          result = res.data.reduce((acc, val) => {
+            return acc + val 
+          }, 0);
+          console.log("New Beginning",result);
           return result 
         }
         catch(err){

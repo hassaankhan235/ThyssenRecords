@@ -25,6 +25,7 @@ const AppLogedin = () => {
         SERtotAttendeesMonth_SA
         NItotSAMonth
         NItotAttendeesMonth_SA
+        NItotAttendeesYear_SA
     }
     `;
 
@@ -57,14 +58,14 @@ return(
 
         <div className={`${Styles.blocktwo}`} style={{width:'100%'}}>
         <h5 className={`${Styles.periodHeading} `} >   
-        THIS YEAR  
+        THIS YEAR--  
         </h5> 
         <div style={{display:'flex'}}>
         <DashboardInfoCards title='ToolBox Talk' firstinfo='Total tbts' secinfo='Total Attendees'
         firsttotal={data && data.NItotTBTYear} secondtotal= {data && data.NItotAttendeesYear}
         thirdtotal={data && data.SERtotTBTYear} fourthtotal={data && data.SERtotAttendeesYear} />
         <DashboardInfoCards title='Safety Alert' firstinfo='Tot Traing' secinfo='Total Attendees' firsttotal={0}
-        secondtotal={0} thirdtotal={0} fourthtotal={0}/>
+        secondtotal={data && data.NItotAttendeesYear_SA} thirdtotal={0} fourthtotal={0}/>
         </div>
         </div>
     </div>
