@@ -65,6 +65,8 @@ type Query {
     NItotAttendeesMonth: Int
     NItotAttendeesMonth_SA: Int
     NItotTBTYear: Int
+    NItotSAYear:  Int
+    SertotSAYear : Int
     NItotAttendeesYear: Int
     NItotAttendeesYear_SA: Int
     SERtotSAMonth: Int
@@ -232,6 +234,34 @@ const resolvers = {
           console.log("ERROR",err);
         }
       },
+      NItotSAYear: async (parent, args, context) => {
+        try{
+          var d = new Date();
+          var year = d.getFullYear()
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = await client.query(
+            q.Count(q.Range(q.Match(q.Index('NIsa-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) )
+          )
+          return res
+        } 
+        catch(err){
+          // console.log("ERROR",err);
+        }
+      },
+      SertotSAYear: async (parent, args, context) => {
+        try{
+          var d = new Date();
+          var year = d.getFullYear()
+          var client = new Client({secret: process.env.MY_SECRET})
+          let res = await client.query(
+            q.Count(q.Range(q.Match(q.Index('Sersa-ByDate')), q.Date(`${year}-01-01`),  q.Date(`${year}-${month}-${date}`)  ) )
+          )
+          return res
+        } 
+        catch(err){
+          // console.log("ERROR",err);
+        }
+      }, 
       NItotAttendeesYear: async(parent, args, context) => {
         try{
           var client = new Client({secret: process.env.MY_SECRET})

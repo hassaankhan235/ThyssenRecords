@@ -193,7 +193,24 @@ exports.TechBasedDataResolver = {
             catch(err){
               console.log("ERROR",err);
             }
-          }
+          },
+          AllNiSAByTechnicianId : async(_, args) => {
+            try{  
+              var client = new fauna.Client({secret: process.env.MY_SECRET})
+              let res = await client.query(
+                q.Map(
+                  q.Paginate(
+                    q.Match(q.Index('NISa-ByIdAndDate'), args.id )
+                    ),
+                    q.Lambda( ['x', 'y'], q.Get(q.Var('y') ) )
+                    )
+              )
+              return res.data
+            } 
+            catch(err){
+              console.log("ERROR",err);
+            }
+          },
 },
 Mutation: {
   deleteSerTbt: async(_, args) => {

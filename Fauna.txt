@@ -1,0 +1,9 @@
+Find TBTS for Specific Technician ID
+
+Map(
+  Paginate(Match(Index('SERSa-ByIdAndDate'
+  ) , '10479502')
+  ), Lambda(['a' ,'pilotRef'],  
+  Select( ['data'], Get(Var('pilotRef')))  
+   )
+  )
