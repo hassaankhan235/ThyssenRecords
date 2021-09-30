@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 
 import SubmitTechnician from '../Submit/SubmitTechnician'
+import CheckExistingTech from './CheckExistingTech'
+
 
 const AddTechForm = () => {
 
     const [flag, setFlag] = useState(false)
+    const [ExistingTech, setExisting] = useState(false)
     const [TechDetails, setTechDetails] = useState({name:'',id:'',company:'',dept:''})
 
     const reset = () => {
@@ -97,8 +100,8 @@ const AddTechForm = () => {
 </div>
 </div>
 </fieldset>
-
-<SubmitTechnician TechDetails={TechDetails} reset={reset} />
+<CheckExistingTech  setflag={setExisting} Techid={TechDetails.id} />
+{ ExistingTech && <SubmitTechnician TechDetails={TechDetails} reset={reset} />}
 </form>
         </div>
     )
