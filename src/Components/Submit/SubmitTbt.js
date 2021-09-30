@@ -41,6 +41,11 @@ function SubmitTbt(props) {
     const handleSubmit =  async(e) => {
         e.preventDefault()
         let result, rcvd 
+     if(tbtdetails[0].date === ''){
+         alert('You missed to fill some information. Try again')
+     }   
+     
+        else{
         if(tbtdetails[0].type === 'TBT')
         {
             tbtdetails[0].dept === 'NI' ?
@@ -56,6 +61,7 @@ function SubmitTbt(props) {
             id: filteredId
         }})
         }
+        
         else{
             tbtdetails[0].dept === 'NI' ?
         result = await writeNISA({variables: {
@@ -70,6 +76,7 @@ function SubmitTbt(props) {
             id: filteredId
         }})
         }
+    }
         let msg = 'Added New'
         rcvd = msg.concat(tbtdetails[0].type==="TBT" && tbtdetails.dept === 'NI' ? JSON.stringify(result.data.writeNItbt) 
                                 : JSON.stringify(result.data.writeSERtbt))
