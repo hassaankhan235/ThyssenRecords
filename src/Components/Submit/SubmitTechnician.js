@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client'
 import gql from 'graphql-tag';
 import React from 'react'
 
