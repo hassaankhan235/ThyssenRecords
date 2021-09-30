@@ -46,7 +46,7 @@ function AddTbt() {
   
 
     const [autoHeight, SetautoHeight] = useState(false)
-    const [dept, setDept] = useState('ni')
+    const [dept, setDept] = useState('')
     const [deptSelectFlag, setDeptSelectFlag] = useState(false) /* Checks if dept is selected */
     const [flag, setFlag] = useState(true)                      /* uncheck the options radio at start and reset */
     const [typeSelectFlag, setTypeSelectFlag] = useState(false) /* Checks if type of TBT is selected */

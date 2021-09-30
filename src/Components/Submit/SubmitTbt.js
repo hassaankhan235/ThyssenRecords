@@ -40,8 +40,13 @@ function SubmitTbt(props) {
 
     const handleSubmit =  async(e) => {
         e.preventDefault()
-        let result, rcvd 
-        if(tbtdetails[0].type === 'TBT')
+        let result, rcvd
+        if(
+        tbtdetails[0].date === '' || tbtdetails[0].topic === '' || tbtdetails.sitename === '' 
+        || tbtdetails[1].name === '' || tbtdetails[1].id === '' ){
+        alert("You missed to type in some information please try again") 
+        }
+            if(tbtdetails[0].type === 'TBT')
         {
             tbtdetails[0].dept === 'NI' ?
         result = await writeNItbt({variables: {
@@ -77,6 +82,7 @@ function SubmitTbt(props) {
             rcvd = msg.concat(tbtdetails[0].type=== "SA" && tbtdetails.dept === 'NI' ? JSON.stringify(result.data.writeNISA)
                                 : JSON.stringify(result.data.writeSERSA) )
         let Message = rcvd.concat(' toolbox talk. Thanks Hassaan Cheetay ✔ 👍')
+        
         alert(Message)
         console.log("Recieved back---------",rcvd, result,tbtdetails[0].type=== "SA",tbtdetails[0].dept === 'NI');
         reset(e)

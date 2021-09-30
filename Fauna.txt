@@ -7,3 +7,20 @@ Map(
   Select( ['data'], Get(Var('pilotRef')))  
    )
   )
+
+Find TBTS for Specific Technician ID & Remove Tech ID
+
+Map(
+  Paginate(Match(Index('SERSa-ByIdAndDate'
+  ) , '10479361')
+  ), Lambda(['a' ,'pilotRef'],  
+  Update(Select( ['ref'], Get(Var('pilotRef')) ), 
+  {
+    data : {
+      topic: Select(['data','topic'], Get(Var('pilotRef'))),
+      id: Drop('10479361', Select(['data','id'], Get(Var('pilotRef')))) 
+    }
+  }
+  )  
+   )
+  )
