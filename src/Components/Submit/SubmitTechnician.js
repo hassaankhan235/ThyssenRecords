@@ -46,6 +46,8 @@ function SubmitTechnician(props) {
         reset()
     }
 
+    if(loading) {return('Loading Hunooz')}
+    else
     return (
         <div style={{display:'flex'}}>
         <input className='btn btn-primary ml-auto mb-3' type='submit' value='Save' 
