@@ -41,7 +41,7 @@ function SubmitTbt(props) {
     const handleSubmit =  async(e) => {
         e.preventDefault()
         let result, rcvd 
-     if(tbtdetails[0].date === ''){
+     if(tbtdetails[0].date === '' || tbtdetails[0].topic === '' || tbtdetails[0].sitename === '' || tbtdetails[1].name === ''){
          alert('You missed to fill some information. Try again')
      }   
      
