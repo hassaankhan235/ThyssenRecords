@@ -100,8 +100,7 @@ const AddTechForm = () => {
 </div>
 </div>
 </fieldset>
-<CheckExistingTech  setflag={setExisting} Techid={TechDetails.id} />
-{ ExistingTech && <SubmitTechnician TechDetails={TechDetails} reset={reset} />}
+{ !ExistingTech && <SubmitTechnician TechDetails={TechDetails} reset={reset} />}
 </form>
         </div>
     )
