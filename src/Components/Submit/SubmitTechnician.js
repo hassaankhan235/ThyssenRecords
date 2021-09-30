@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
-import { gql, useQuery } from '@apollo/client'
 import gql from 'graphql-tag';
+import { gql, useQuery } from '@apollo/client'
 import React from 'react'
 
 function SubmitTechnician(props) {
@@ -16,33 +16,35 @@ function SubmitTechnician(props) {
         WriteSERtech(name: $name, id:$id, company: $company)
     }
     `
-
- 
+    const READ_QUERY = gql`
+    {
+        getTechnicians_NI{
+          name
+          id
+        }
+    `
 
     const [WriteNItech] = useMutation(WRITE_NI_TECH)
     const [WriteSERtech] = useMutation(WRITE_SER_TECH)
+    const {loading, error, data} = useQuery(READ_QUERY)
     const {TechDetails, reset} = props
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        //console.log('DATA IS',data.getTechnicians_SER);
-        //if(TechDetails.dept === "NI" && data.getTechnicians_NI.id.includes(TechDetails.id))
-        //{alert('Technician Already Exist')}
-        {
-            TechDetails.dept === 'NI' ?  
-            await WriteNItech({variables:{
-                name:    TechDetails.name,
-                id:      TechDetails.id,
-                company: TechDetails.company
-            }})
-            :
-            await WriteSERtech({variables:{
-                name:    TechDetails.name,
-                id:      TechDetails.id,
-                company: TechDetails.company
-            }})
-            reset()
-        }
+        if(data.getTechnicians_NI.id.includes(TechDetails.id)){alert("Working phadaloo",data.getTechnicians_NI)}  
+        TechDetails.dept === 'NI' ? 
+        await WriteNItech({variables:{
+            name:    TechDetails.name,
+            id:      TechDetails.id,
+            company: TechDetails.company
+        }})
+        :
+        await WriteSERtech({variables:{
+            name:    TechDetails.name,
+            id:      TechDetails.id,
+            company: TechDetails.company
+        }})
+        reset()
     }
 
     return (
