@@ -35,7 +35,8 @@ const AppLogedin = () => {
 const {loading, error, data} = useQuery(READ_QUERY)
 
 if(error) return "error"
-console.log('NItotAttendeesMonth', data); 
+if(loading) console.log('LOADING ABHI')
+console.log('NItotAttendeesMonth', data, error); 
 
 
 return(

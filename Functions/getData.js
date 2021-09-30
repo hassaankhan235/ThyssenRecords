@@ -95,6 +95,7 @@ type Query {
     getTechnicians_NI_W_REF: [Technician]
     getTechnicians_SER_W_REF: [Technician]
     AllNiTbtByTechnicianId(id: String): [tbtObject]
+    AllNiSAByTechnicianId(id: String): [tbtObject]
     AllSerTBTByTechnicianID(id: String): [tbtObject]
     AllSerSAByTechnicianID(id: String): [tbtObject]
     getNiTbtCountByHazard(topic: String): Int
