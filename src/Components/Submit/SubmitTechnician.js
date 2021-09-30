@@ -17,28 +17,18 @@ function SubmitTechnician(props) {
     }
     `
 
-    const ReadTech = gql`
-    {
-        getTechnicians_NI{
-            id
-        }
-    }
-    getTechnicians_SER{
-        id
-      }
-    `
+ 
 
     const [WriteNItech] = useMutation(WRITE_NI_TECH)
     const [WriteSERtech] = useMutation(WRITE_SER_TECH)
     const {TechDetails, reset} = props
-    const {loading, error, data} = useQuery(READ_QUERY)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('DATA IS',data.getTechnicians_SER);
-        if(TechDetails.dept === "NI" && data.getTechnicians_NI.id.includes(TechDetails.id))
-        {alert('Technician Already Exist')}
-        else{
+        //console.log('DATA IS',data.getTechnicians_SER);
+        //if(TechDetails.dept === "NI" && data.getTechnicians_NI.id.includes(TechDetails.id))
+        //{alert('Technician Already Exist')}
+        {
             TechDetails.dept === 'NI' ?  
             await WriteNItech({variables:{
                 name:    TechDetails.name,
