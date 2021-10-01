@@ -1,10 +1,9 @@
-import React from 'react'
+
 
 import { gql, useQuery } from '@apollo/client'
 
-function CheckExistingTech(props) {
+function CheckExistingTech(setFlag,TechId) {
 
-    const {setflag,Techid} = props
     const READ_QUERY =
     gql`
     {
@@ -18,8 +17,8 @@ function CheckExistingTech(props) {
         }
     `
     const {loading, error, data} = useQuery(READ_QUERY)
-    if(data.getTechnicians_NI.id.includes(Techid) ) alert('Work', data)
-    return(null)
+    if(data.getTechnicians_NI.id.includes(TechId) ) alert('Work', data)
+    return(setFlag(true))
 }
 
 export default CheckExistingTech
