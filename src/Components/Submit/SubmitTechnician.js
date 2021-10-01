@@ -32,15 +32,15 @@ function SubmitTechnician(props) {
     const {loading, error, data} = useQuery(READ_QUERY)
     const {TechDetails, reset} = props
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {      
         e.preventDefault()
-        console.log('Other way round', data.getTechnicians_NI,);
-        data.getTechnicians_NI.some(obj=> {
-          if (obj.id === TechDetails.id)
-          alert('Found')
-        })
-        if(data.getTechnicians_NI.some(obj => obj.id === TechDetails.id)) alert('Already Exist')
+        
+        if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id) || 
+           TechDetails.dept === "SER" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
+        alert('Technician Already Exist in NI Records')
+
         else{
+        console.log('By the way', TechDetails);
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
             name:    TechDetails.name,
