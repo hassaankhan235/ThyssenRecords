@@ -36,7 +36,7 @@ function SubmitTechnician(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if(TechDetails.id === 10) {console.log('bhali',TechDetails.id)}
+        console.log('bhali',TechDetails.id)
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
             name:    TechDetails.name,
