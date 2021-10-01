@@ -7,11 +7,9 @@ function SubmitTechnician(props) {
     const READ_QUERY = gql`
     {
       getTechnicians_NI{
-        name
         id
       }
       getTechnicians_SER{
-        name
         id
       }
     }
@@ -36,9 +34,13 @@ function SubmitTechnician(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(data.getTechnicians_NI.id, 'Other way round', data.getTechnicians_NI,);
-        console.log('Condition checking', data.getTechnicians_NI.id.includes(TechDetails.id)); 
-        if(data.getTechnicians_NI.id.includes(TechDetails.id)) alert('Already Exist')
+        console.log('Other way round', data.getTechnicians_NI,);
+        data.getTechnicians_NI.id.some(obj=> {
+          if (obj.id === TechDetails.id)
+          alert(Found)
+          else alert('Not found')
+        })
+        if(data.getTechnicians_NI.some(obj => obj.id === TechDetails.id)) alert('Already Exist')
         else{
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
