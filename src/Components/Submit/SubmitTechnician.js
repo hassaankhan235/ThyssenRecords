@@ -33,10 +33,11 @@ function SubmitTechnician(props) {
     const {TechDetails, reset} = props
 
     const handleSubmit = async (e) => {
+      
+      e.preventDefault()
       const [NiExist, setNiixist] = useState(false)
       const [SerExist, setSerExist] = useState(false)
       const [MissedInfo, setMissedInfo] = useState(false)      
-        e.preventDefault()
         
         if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id))
         {
