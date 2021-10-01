@@ -35,10 +35,12 @@ function SubmitTechnician(props) {
     const handleSubmit = async (e) => {      
         e.preventDefault()
         
-        if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id) || 
-           TechDetails.dept === "SER" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
+        if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id))
         alert('Technician Already Exist in NI Records')
-
+        if(TechDetails.dept === "Ser" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
+        alert('Technician Already Exist in Service Records')
+        if(TechDetails.dept === "" || TechDetails.name === "" || TechDetails.company === "") 
+        alert("You missed to fill some information")
         else{
         console.log('By the way', TechDetails);
         TechDetails.dept === 'NI' ? 
