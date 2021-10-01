@@ -2,27 +2,13 @@ import React, {useState} from 'react'
 import { gql, useQuery } from '@apollo/client'
 
 import SubmitTechnician from '../Submit/SubmitTechnician'
-import CheckExistingTech from './CheckExistingTech'
+
 
 
 const AddTechForm = () => {
 
-  const READ_QUERY = gql`
-  {
-    getTechnicians_NI{
-      name
-      id
-    }
-    getTechnicians_SER{
-      name
-      id
-    }
-  }
-    `
-    const {loading, error, data} = useQuery(READ_QUERY)
 
     const [flag, setFlag] = useState(false)
-    const [ExistingTech, setExisting] = useState(false)
     const [TechDetails, setTechDetails] = useState({name:'',id:'',company:'',dept:''})
 
     const reset = () => {
@@ -115,8 +101,7 @@ const AddTechForm = () => {
 </div>
 </div>
 </fieldset>
-{CheckExistingTech(TechDetails.id,setExisting)}   
-<SubmitTechnician TechDetails={TechDetails} reset={reset} ExistingTech={ExistingTech} />
+<SubmitTechnician TechDetails={TechDetails} reset={reset} />
 </form>
         </div>
     )

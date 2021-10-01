@@ -4,6 +4,19 @@ import React from 'react'
 
 function SubmitTechnician(props) {
 
+    const READ_QUERY = gql`
+    {
+      getTechnicians_NI{
+        name
+        id
+      }
+      getTechnicians_SER{
+        name
+        id
+      }
+    }
+      `
+
     const WRITE_NI_TECH = gql`
     mutation Write_Ni_Tech($name:String, $id:String, $company:String){
         WriteNItech(name: $name, id:$id, company: $company)
@@ -18,11 +31,12 @@ function SubmitTechnician(props) {
 
     const [WriteNItech] = useMutation(WRITE_NI_TECH)
     const [WriteSERtech] = useMutation(WRITE_SER_TECH)
-    const {TechDetails, reset, ExistingTech} = props
+    const {loading, error, data} = useQuery(READ_QUERY)
+    const {TechDetails, reset} = props
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        ExistingTech && alert('Bhali kare aya baba')
+        if(TechDetails.id === 10) alert('Bhali kare chacha')
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
             name:    TechDetails.name,
