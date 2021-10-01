@@ -37,8 +37,7 @@ function SubmitTechnician(props) {
         console.log('Other way round', data.getTechnicians_NI,);
         data.getTechnicians_NI.some(obj=> {
           if (obj.id === TechDetails.id)
-          alert(Found)
-          else alert('Not found')
+          alert('Found')
         })
         if(data.getTechnicians_NI.some(obj => obj.id === TechDetails.id)) alert('Already Exist')
         else{
