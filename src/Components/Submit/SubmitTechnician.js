@@ -36,9 +36,10 @@ function SubmitTechnician(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('bhali karey Aya',TechDetails.id)
-        if( TechDetails.id === 123) console.log("Bhali Number baba")
-        if( TechDetails.id === '123') console.log("Bhali String baba")
+        console.log(data.getTechnicians_NI.id, 'Other way round', data.getTechnicians_NI,);
+        console.log('Condition checking', data.getTechnicians_NI.id.includes(TechDetails.id)); 
+        if(data.getTechnicians_NI.id.includes(TechDetails.id)) alert('Already Exist')
+        else{
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
             name:    TechDetails.name,
@@ -52,6 +53,7 @@ function SubmitTechnician(props) {
             company: TechDetails.company
         }})
         reset()
+      }
     }
 
     return (
