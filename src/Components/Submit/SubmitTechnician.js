@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
 import { useMutation } from '@apollo/client';
 import { gql, useQuery } from '@apollo/client'
+import React from 'react'
 
 function SubmitTechnician(props) {
 
@@ -32,29 +32,13 @@ function SubmitTechnician(props) {
     const {loading, error, data} = useQuery(READ_QUERY)
     const {TechDetails, reset} = props
 
-    const handleSubmit = async (e) => {
-      
-      e.preventDefault()
-      const [NiExist, setNiixist] = useState(false)
-      const [SerExist, setSerExist] = useState(false)
-      const [MissedInfo, setMissedInfo] = useState(false)      
-        
-        if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id))
+    const handleSubmit = async (e) => {      
+        e.preventDefault()
+        if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id) || 
+           TechDetails.dept === "Ser" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
+        alert('Technician Already Exist in NI Records')
+        if(TechDetails.dept !== "" && TechDetails.name !== "" && TechDetails.company !== "") 
         {
-          setNiixist(true)
-          alert('Technician Already Exist in NI Records')
-        }
-        if(TechDetails.dept === "Ser" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
-        {
-          setSerExist(true)
-          alert('Technician Already Exist in Service Records')
-        }
-        if(TechDetails.dept === "" || TechDetails.name === "" || TechDetails.company === "") 
-        {
-          setMissedInfo(true)
-          alert("You missed to fill some information")
-        }
-        if(!NiExist && !SerExist && !MissedInfo){
         console.log('By the way', TechDetails);
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
@@ -70,6 +54,7 @@ function SubmitTechnician(props) {
         }})
         reset()
       }
+      else alert('You Missed Some Information')
     }
 
     return (
