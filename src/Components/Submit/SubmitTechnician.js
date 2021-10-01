@@ -35,7 +35,7 @@ function SubmitTechnician(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log('Other way round', data.getTechnicians_NI,);
-        data.getTechnicians_NI.id.some(obj=> {
+        data.getTechnicians_NI.some(obj=> {
           if (obj.id === TechDetails.id)
           alert(Found)
           else alert('Not found')
