@@ -32,16 +32,28 @@ function SubmitTechnician(props) {
     const {loading, error, data} = useQuery(READ_QUERY)
     const {TechDetails, reset} = props
 
-    const handleSubmit = async (e) => {      
+    const handleSubmit = async (e) => {
+      const [NiExist, setNiixist] = useState(false)
+      const [SerExist, setSerExist] = useState(false)
+      const [MissedInfo, setMissedInfo] = useState(false)      
         e.preventDefault()
         
         if(TechDetails.dept === "NI" && data.getTechnicians_NI.some(obj => obj.id === TechDetails.id))
-        alert('Technician Already Exist in NI Records')
+        {
+          setNiixist(true)
+          alert('Technician Already Exist in NI Records')
+        }
         if(TechDetails.dept === "Ser" && data.getTechnicians_SER.some(obj => obj.id === TechDetails.id)) 
-        alert('Technician Already Exist in Service Records')
+        {
+          setSerExist(true)
+          alert('Technician Already Exist in Service Records')
+        }
         if(TechDetails.dept === "" || TechDetails.name === "" || TechDetails.company === "") 
-        alert("You missed to fill some information")
-        else{
+        {
+          setMissedInfo(true)
+          alert("You missed to fill some information")
+        }
+        if(!NiExist && !SerExist && !MissedInfo){
         console.log('By the way', TechDetails);
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
