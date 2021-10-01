@@ -1,6 +1,6 @@
+import React, { useState } from 'react'
 import { useMutation } from '@apollo/client';
 import { gql, useQuery } from '@apollo/client'
-import React from 'react'
 
 function SubmitTechnician(props) {
 
