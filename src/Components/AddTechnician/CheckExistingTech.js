@@ -1,12 +1,12 @@
 
 
 
-function CheckExistingTech(setFlag,TechId) {
+function CheckExistingTech(TechId, setExisting) {
 
     
    
-    if(TechId) alert('Work')
-    return(setFlag(true))
+    if(TechId)
+    return(setExisting(true))
 }
 
 export default CheckExistingTech

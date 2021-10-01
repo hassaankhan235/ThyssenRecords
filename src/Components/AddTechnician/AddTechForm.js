@@ -7,8 +7,7 @@ import CheckExistingTech from './CheckExistingTech'
 
 const AddTechForm = () => {
 
-  const READ_QUERY =
-  gql`
+  const READ_QUERY = gql`
   {
     getTechnicians_NI{
       name
@@ -18,6 +17,7 @@ const AddTechForm = () => {
       name
       id
     }
+  }
     `
     const {loading, error, data} = useQuery(READ_QUERY)
 
@@ -115,8 +115,8 @@ const AddTechForm = () => {
 </div>
 </div>
 </fieldset>
-`{CheckExistingTech(TechDetails.id,setFlag)}   
-{ !ExistingTech && <SubmitTechnician TechDetails={TechDetails} reset={reset} />}
+{CheckExistingTech(TechDetails.id,setExisting)}   
+<SubmitTechnician TechDetails={TechDetails} reset={reset} ExistingTech={ExistingTech} />
 </form>
         </div>
     )

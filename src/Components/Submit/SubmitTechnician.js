@@ -18,10 +18,11 @@ function SubmitTechnician(props) {
 
     const [WriteNItech] = useMutation(WRITE_NI_TECH)
     const [WriteSERtech] = useMutation(WRITE_SER_TECH)
-    const {TechDetails, reset} = props
+    const {TechDetails, reset, ExistingTech} = props
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        ExistingTech && alert('Bhali kare aya baba')
         TechDetails.dept === 'NI' ? 
         await WriteNItech({variables:{
             name:    TechDetails.name,
