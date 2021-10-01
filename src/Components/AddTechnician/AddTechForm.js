@@ -7,19 +7,19 @@ import CheckExistingTech from './CheckExistingTech'
 
 const AddTechForm = () => {
 
-  const {loading, error, data} = useQuery(READ_QUERY)
   const READ_QUERY =
-    gql`
-    {
-        getTechnicians_NI{
-          name
-          id
-        }
-        getTechnicians_SER{
-          name
-          id
-        }
+  gql`
+  {
+    getTechnicians_NI{
+      name
+      id
+    }
+    getTechnicians_SER{
+      name
+      id
+    }
     `
+    const {loading, error, data} = useQuery(READ_QUERY)
 
     const [flag, setFlag] = useState(false)
     const [ExistingTech, setExisting] = useState(false)
