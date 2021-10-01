@@ -1,10 +1,25 @@
 import React, {useState} from 'react'
+import { gql, useQuery } from '@apollo/client'
 
 import SubmitTechnician from '../Submit/SubmitTechnician'
 import CheckExistingTech from './CheckExistingTech'
 
 
 const AddTechForm = () => {
+
+  const {loading, error, data} = useQuery(READ_QUERY)
+  const READ_QUERY =
+    gql`
+    {
+        getTechnicians_NI{
+          name
+          id
+        }
+        getTechnicians_SER{
+          name
+          id
+        }
+    `
 
     const [flag, setFlag] = useState(false)
     const [ExistingTech, setExisting] = useState(false)
@@ -100,7 +115,7 @@ const AddTechForm = () => {
 </div>
 </div>
 </fieldset>
-<CheckExistingTech setFlag={setExisting} TechId={TechDetails.id} /> 
+{CheckExistingTech(TechId,setFlag)}   
 { !ExistingTech && <SubmitTechnician TechDetails={TechDetails} reset={reset} />}
 </form>
         </div>
